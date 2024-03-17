@@ -1,4 +1,4 @@
-# web-projekti
+# keskustelusovellus
 
 
 Keskustelusovellus kurssin materiaalista
