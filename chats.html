@@ -1,0 +1,12 @@
+Viestien määrä: {{ count }}
+<hr>
+{% for message in messages %}
+    <p><span style="font-weight: bold; color: blue;">{{ message[1] }}, {{ message.sent_at.strftime("%Y-%m-%d %H:%M:%S") }}</span></p>    <p>{{ message[0] }}</p>
+    <hr>
+{% endfor %}
+<form action="/send" method="post">
+    <textarea name="content" rows="4" cols="50"></textarea><br>
+    <input type="submit" value="Lähetä viesti">
+</form>
+<p></p>
+<a href="/">Kirjaudu ulos tästä</a>
