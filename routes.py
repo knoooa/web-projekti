@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, request, redirect, session
-import users
+import users, messages
 
 
 @app.route("/")
@@ -11,6 +11,23 @@ def index():
 def welcome():
     username = session.get("username")
     return render_template("welcome.html", username=username)
+
+@app.route("/chats")
+def chats():
+    list = messages.get_messages()
+    return render_template("chats.html", count=len(list), messages=list)
+
+@app.route("/new_message")
+def new():
+    return render_template("new_message.html")
+
+@app.route("/send", methods=["POST", "GET"])
+def send():
+    content = request.form["content"]
+    if messages.send_message(content):
+        return redirect("/chats")
+    else:
+        return render_template("error.html", message="Viestiä ei voitu lähettää, yritä uudelleen")
 
 
 
