@@ -2,7 +2,6 @@ from app import app
 from flask import render_template, request, redirect, session, url_for
 import users, messages
 
-
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -21,14 +20,14 @@ def topic_chats(topic_name):
 @app.route("/chat/<chat_name>")
 def chat_messages(chat_name):
     msgs = messages.get_messages(chat_name)
-    return render_template("chats.html", msgs=msgs)
-
-#---------------------------
+    return render_template("chats.html", msgs=msgs, chat_name=chat_name)
 
 @app.route("/chats")
 def chats():
     list = messages.get_messages()
     return render_template("chats.html", count=len(list), messages=list)
+
+#-------------------------------------------------
 
 @app.route("/new_message")
 def new():
@@ -37,8 +36,10 @@ def new():
 @app.route("/send", methods=["POST", "GET"])
 def send():
     content = request.form["content"]
-    chat_name = request.referrer.split('/')[-1]
-    if messages.send_message(content):
+    chat_name = request.form["chat_name"]
+    chat_id = messages.get_chat_id(chat_name)
+
+    if messages.send_message(content, chat_id):
         return redirect(url_for('chat_messages', chat_name=chat_name))
     else:
         return render_template("error.html", message="Viestiä ei voitu lähettää, yritä uudelleen")
