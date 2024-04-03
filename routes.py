@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, redirect, session
+from flask import render_template, request, redirect, session, url_for
 import users, messages
 
 
@@ -10,7 +10,20 @@ def index():
 @app.route("/welcome")
 def welcome():
     username = session.get("username")
-    return render_template("welcome.html", username=username)
+    topics = messages.get_topics()
+    return render_template("welcome.html", username=username, topics=topics)
+
+@app.route("/topic/<topic_name>")
+def topic_chats(topic_name):
+    chats = messages.get_chats(topic_name)
+    return render_template("topic_chats.html", chats=chats, topic=topic_name)
+
+@app.route("/chat/<chat_name>")
+def chat_messages(chat_name):
+    msgs = messages.get_messages(chat_name)
+    return render_template("chats.html", msgs=msgs)
+
+#---------------------------
 
 @app.route("/chats")
 def chats():
@@ -24,12 +37,13 @@ def new():
 @app.route("/send", methods=["POST", "GET"])
 def send():
     content = request.form["content"]
+    chat_name = request.referrer.split('/')[-1]
     if messages.send_message(content):
-        return redirect("/chats")
+        return redirect(url_for('chat_messages', chat_name=chat_name))
     else:
         return render_template("error.html", message="Viestiä ei voitu lähettää, yritä uudelleen")
 
-
+#-------------------------------------------
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -45,11 +59,9 @@ def login():
             return render_template("error.html", message="Väärä tunnus tai salasana")
         
         
-        
 @app.route("/register", methods=["GET"])
 def register_form():
     return render_template("register.html")
-
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -72,8 +84,9 @@ def register():
             return render_template("error.html", message="Rekisteröinti ei onnistunut")
 
 
-
 @app.route("/logout")
 def logout():
     users.logout()
     return redirect("/")
+
+#-------------------------------------------
