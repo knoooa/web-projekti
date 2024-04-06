@@ -1,0 +1,14 @@
+<p>{{ chat_name }}</p>
+<p>Viestien määrä: {{ count }}</p>
+<hr>
+{% for message in msgs %}
+    <p><span style="font-weight: bold; color: blue;">{{ message[1] }}, {{ message.sent_at.strftime("%Y-%m-%d %H:%M:%S") }}</span></p>    <p>{{ message[0] }}</p>
+    <hr>
+{% endfor %}
+<form action="/send" method="post">
+    <input type="hidden" name="chat_name" value="{{ chat_name }}">
+    <textarea name="content" rows="4" cols="50"></textarea><br>
+    <input type="submit" value="Lähetä viesti">
+</form>
+<p></p>
+<a href="/">Kirjaudu ulos tästä</a>
