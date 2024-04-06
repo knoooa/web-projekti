@@ -17,9 +17,10 @@ Esimerkki käynnistysohjeista
 
 Kloonaa tämä repositorio omalle koneellesi ja siirry sen juurikansioon. Luo kansioon .env-tiedosto ja määritä sen sisältö seuraavanlaiseksi:
 
-DATABASE_URL=<tietokannan-paikallinen-osoite>
+DATABASE_URL="postgresql:/USERNAME:PASSWORD@localhost/chat"
 
-SECRET_KEY=<salainen-avain>
+
+SECRET_KEY="1234567890123456"
 
 Seuraavaksi aktivoi virtuaaliympäristö ja asenna sovelluksen riippuvuudet komennoilla
 
