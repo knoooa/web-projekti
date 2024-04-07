@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, request, redirect, session, url_for
-import users, messages
+import users, messages, test
 
 @app.route("/")
 def index():
@@ -8,10 +8,11 @@ def index():
 
 @app.route("/welcome")
 def welcome():
+    test.test()
     username = session.get("username")
     topics = messages.get_topics()
     return render_template("welcome.html", username=username, topics=topics)
-
+    
 @app.route("/topic/<topic_name>")
 def topic_chats(topic_name):
     chats = messages.get_chats(topic_name)
