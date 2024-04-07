@@ -34,3 +34,15 @@ def get_chat_id(chat_name):
     result = db.session.execute(sql, {"chat_name": chat_name})
     chat_id = result.scalar()
     return chat_id
+
+def get_topic_id(topic_name):
+    sql = text("SELECT id FROM topic WHERE topic_name = :topic_name")
+    result = db.session.execute(sql, {"topic_name": topic_name}).fetchone()
+    return result[0]
+    
+def create_chat(title, user_id, topic_id):
+    sql = text("INSERT INTO chats (title, user_id, topic_id, created_at) VALUES(:title, :user_id, :topic_id, NOW())")
+    db.session.execute(sql, {"title":title, "user_id":user_id, "topic_id":topic_id})
+    db.session.commit()
+
+    

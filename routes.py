@@ -8,7 +8,6 @@ def index():
 
 @app.route("/welcome")
 def welcome():
-    test.test()
     username = session.get("username")
     topics = messages.get_topics()
     return render_template("welcome.html", username=username, topics=topics)
@@ -16,7 +15,7 @@ def welcome():
 @app.route("/topic/<topic_name>")
 def topic_chats(topic_name):
     chats = messages.get_chats(topic_name)
-    return render_template("topic_chats.html", chats=chats, topic=topic_name)
+    return render_template("topic_chats.html", chats=chats, topic_name=topic_name)
 
 @app.route("/chat/<chat_name>")
 def chat_messages(chat_name):
@@ -27,6 +26,16 @@ def chat_messages(chat_name):
 def chats():
     list = messages.get_messages()
     return render_template("chats.html", count=len(list), messages=list)
+
+@app.route("/create_chat", methods=["POST", "GET"])
+def create_chat():
+    chat_title = request.form['chat_title']
+    topic_name = request.form['topic_name'] 
+    topic_id = messages.get_topic_id(topic_name)
+    user_id = users.user_id()
+    messages.create_chat(chat_title, user_id, topic_id)
+
+    return redirect(url_for('topic_chats', topic_name=topic_name))
 
 #-------------------------------------------------
 
