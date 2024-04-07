@@ -8,3 +8,4 @@ app.secret_key = getenv("SECRET_KEY")
 #app.secret_key = secrets.token_hex(16)
 
 import routes
+ 
