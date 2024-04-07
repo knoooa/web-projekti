@@ -13,6 +13,10 @@ Käyttäjä voi etsiä kaikki viestit, joiden osana on annettu sana.
 Ylläpitäjä voi lisätä ja poistaa keskustelualueita.
 Ylläpitäjä voi luoda salaisen alueen ja määrittää, keillä käyttäjillä on pääsy alueelle.
 
+
+Sovelluksessa toimii kirjautumissivu, minkä jälkeen näkyy keskustelualueet linkkeinä. Niitä painamalla pääsee sivulle, jossa näkyy aiheeseen liittyvät chatit tai sitten voi luoda uuden keskustelun. Chattia painamalla pääsee keskustelun viesteihin.
+
+
 Esimerkki käynnistysohjeista
 
 Kloonaa tämä repositorio omalle koneellesi ja siirry sen juurikansioon. Luo kansioon .env-tiedosto ja määritä sen sisältö seuraavanlaiseksi:
