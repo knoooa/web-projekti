@@ -45,4 +45,10 @@ def create_chat(title, user_id, topic_id):
     db.session.execute(sql, {"title":title, "user_id":user_id, "topic_id":topic_id})
     db.session.commit()
 
-    
+def get_username(chat_name):
+    sql = text("SELECT username FROM users WHERE id = (SELECT user_id FROM chats WHERE title = :chat_name)")
+    result = db.session.execute(sql, {"chat_name": chat_name}).fetchone()
+    if result:
+        return result[0]
+    else:
+        return None

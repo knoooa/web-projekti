@@ -20,7 +20,8 @@ def topic_chats(topic_name):
 @app.route("/chat/<chat_name>")
 def chat_messages(chat_name):
     msgs = messages.get_messages(chat_name)
-    return render_template("chats.html", msgs=msgs, chat_name=chat_name)
+    username = messages.get_username(chat_name)
+    return render_template("chats.html", msgs=msgs, chat_name=chat_name, user_id=username)
 
 @app.route("/chats")
 def chats():

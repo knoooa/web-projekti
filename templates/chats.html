@@ -1,5 +1,5 @@
-<p>{{ chat_name }}</p>
-<p>Viestien määrä: {{ count }}</p>
+<p><span style="color: blue;">{{ user_id }}</span> </p>
+<p></p>{{ chat_name }}</p>
 <hr>
 {% for message in msgs %}
     <p><span style="font-weight: bold; color: blue;">{{ message[1] }}, {{ message.sent_at.strftime("%Y-%m-%d %H:%M:%S") }}</span></p>    <p>{{ message[0] }}</p>
