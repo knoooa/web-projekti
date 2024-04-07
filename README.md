@@ -23,7 +23,7 @@ Kloonaa tämä repositorio omalle koneellesi ja siirry sen juurikansioon. Luo ka
 
 DATABASE_URL="postgresql:/USERNAME:PASSWORD@localhost/chat"
 
-aja esim seuraavat komennot tietokannassa, jotta siellä on aiheita:
+suorita esim seuraavat komennot tietokannassa, jotta siellä on aiheita:
 
 INSERT INTO topic (id, topic_name) VALUES (1, 'testi');
 
