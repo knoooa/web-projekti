@@ -14,7 +14,7 @@ Ylläpitäjä voi lisätä ja poistaa keskustelualueita.
 Ylläpitäjä voi luoda salaisen alueen ja määrittää, keillä käyttäjillä on pääsy alueelle.
 
 
-Sovelluksessa toimii kirjautumissivu, minkä jälkeen näkyy keskustelualueet linkkeinä. Niitä painamalla pääsee sivulle, jossa näkyy aiheeseen liittyvät chatit tai sitten voi luoda uuden keskustelun. Chattia painamalla pääsee keskustelun viesteihin.
+Sovelluksessa toimii kirjautumissivu/rekisteröityminen, minkä jälkeen näkyy keskustelualueet linkkeinä. Niitä painamalla pääsee sivulle, jossa näkyy aiheeseen liittyvät chatit tai sitten voi luoda uuden keskustelun. Chattia painamalla pääsee keskustelun viesteihin.
 
 
 Esimerkki käynnistysohjeista
@@ -25,13 +25,11 @@ DATABASE_URL="postgresql:/USERNAME:PASSWORD@localhost/chat"
 
 aja esim seuraavat komennot tietokannassa, jotta siellä on aiheita:
 
-INSERT INTO topic (id, topic_name) VALUES (1, 'Yleinen');
+INSERT INTO topic (id, topic_name) VALUES (1, 'testi');
 
-INSERT INTO topic (id, topic_name) VALUES (2, 'Opiskelu');
+INSERT INTO topic (id, topic_name) VALUES (2, 'testi2');
 
-INSERT INTO topic (id, topic_name) VALUES (3, 'Matkustus');
-
-INSERT INTO topic (id, topic_name) VALUES (4, 'Lemmikit');
+INSERT INTO topic (id, topic_name) VALUES (3, 'testi3');
 
 
 SECRET_KEY="1234567890123456"
