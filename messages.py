@@ -52,3 +52,6 @@ def get_username(chat_name):
         return result[0]
     else:
         return None
+    
+def user_messages(user_id):
+    user_id = users.user_id
