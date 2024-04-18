@@ -1,9 +1,8 @@
-<p>Tervetuloa!</p>
-<p>Olet kirjautuneena sisään nimellä {{ username }}</p>
+<p>Tervetuloa, {{ username }}! | <a href="{{ url_for('index') }}">Kirjaudu ulos tästä</a> </p>
+
 <p>Keskustelualueet:</p>
 <ul>
     {% for topic in topics %}
         <li><a href="{{ url_for('topic_chats', topic_name=topic[0]) }}">{{ topic[0] }}</a></li>
     {% endfor %}
 </ul>
-<a href="/">Kirjaudu ulos tästä</a>

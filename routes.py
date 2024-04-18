@@ -2,6 +2,12 @@ from app import app
 from flask import render_template, request, redirect, session, url_for
 import users, messages, test
 
+nav_links = [
+    {"url": "index", "label": "Koti"},
+    {"url": "chats", "label": "Keskustelut"},
+    {"url": "new", "label": "Viestit"},
+]
+
 @app.route("/")
 def index():
     return render_template("index.html")
