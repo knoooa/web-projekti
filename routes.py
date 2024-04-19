@@ -21,7 +21,8 @@ def topic_chats(topic_name):
 def chat_messages(chat_name):
     msgs = messages.get_messages(chat_name)
     username = messages.get_username(chat_name)
-    return render_template("chats.html", msgs=msgs, chat_name=chat_name, user_id=username)
+    created_at = messages.created_at(chat_name)
+    return render_template("chats.html", msgs=msgs, created_at=created_at, chat_name=chat_name, user_id=username)
 
 @app.route("/chats")
 def chats():
@@ -35,8 +36,12 @@ def create_chat():
     topic_id = messages.get_topic_id(topic_name)
     user_id = users.user_id()
     messages.create_chat(chat_title, user_id, topic_id)
-
     return redirect(url_for('topic_chats', topic_name=topic_name))
+
+@app.route("/my_messages")
+def my_messages():
+    msgs = messages.my_messages()
+    return redirect(msgs=msgs)
 
 #-------------------------------------------------
 

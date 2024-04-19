@@ -32,8 +32,6 @@ INSERT INTO topic (id, topic_name) VALUES (2, 'testi2');
 INSERT INTO topic (id, topic_name) VALUES (3, 'testi3');
 
 
-SECRET_KEY="1234567890123456"
-
 Seuraavaksi aktivoi virtuaaliympäristö ja asenna sovelluksen riippuvuudet komennoilla
 
 $ python3 -m venv venv

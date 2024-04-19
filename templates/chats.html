@@ -11,7 +11,8 @@
     <a href="{{ url_for('chats') }}">Profiili</a> |
     <a href="{{ url_for('index') }}">Kirjaudu ulos tästä</a>
 
-    <p><span >{{ user_id }} </span> </p>
+    <p><span>{{ user_id }}, {{ created_at.strftime("%d.%m.%Y %H:%M") }}</span></p>
+
     <p></p>{{ chat_name }}</p>
     <hr>
     {% for message in msgs %}
@@ -20,7 +21,7 @@
     {% endfor %}
     <form action="/send" method="post">
         <input type="hidden" name="chat_name" value="{{ chat_name }}">
-        <textarea name="content" rows="4" cols="50"></textarea><br>
-        <input type="submit" value="Lähetä viesti">
+        <textarea name="content" rows="4" cols="50" maxlength="200"></textarea><br>
+        <input type="submit" value="Lähetä viesti (max 200 merkkiä!)">
     </form>
 </body>

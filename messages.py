@@ -7,7 +7,6 @@ def get_messages(chat_name):
     results = db.session.execute(sql, {"chat_name": chat_name})
     return results.fetchall()
 
-    
 def send_message(content, chat_id):
     user_id = users.user_id()
     
@@ -52,6 +51,15 @@ def get_username(chat_name):
         return result[0]
     else:
         return None
+
+def created_at(chat_name):
+    chat_id = get_chat_id(chat_name)
+    sql = text("SELECT chats.created_at FROM chats WHERE title=:chat_name AND id=:chat_id")
+    result = db.session.execute(sql, {"chat_name":chat_name, "chat_id":chat_id}).fetchone()
+    return result[0]
     
-def user_messages(user_id):
+def my_messages():
     user_id = users.user_id
+    sql = text("SELECT content, user_id, chat_id FROM messages WHERE user_id=:user_id")
+    result = db.session.execute(sql, {"user_id":user_id}).fetchall()
+    return result

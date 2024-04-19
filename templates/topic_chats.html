@@ -7,7 +7,7 @@
 
 <body>
     <a href="{{ url_for('welcome') }}">Koti</a> |
-    <a href="{{ url_for('chats') }}">Omat viestit</a> |
+    <a href="{{ url_for('my_messages') }}">Omat viestit</a> |
     <a href="{{ url_for('chats') }}">Profiili</a> |
     <a href="{{ url_for('index') }}">Kirjaudu ulos tästä</a>
 
@@ -15,17 +15,17 @@
     <ul>
         {% if chats %}
             {% for chat in chats %}
-                <li><a href="{{ url_for('chat_messages', chat_name=chat.title) }}">{{ chat.title }}</a></li>
+                <li><a href="{{ url_for('chat_messages', chat_name=chat.title)}}">{{ chat.title }}</a></li>
             {% endfor %}
         {% else %}
-            <li>Tällä alueella ei ole vielä yhtään viestiä :(</li>
+            <li>Tällä alueella ei ole vielä yhtään viestiä :( </li>
         {% endif %}
     </ul>
 
     <form action="{{ url_for('create_chat') }}" method="post">
         <input type="hidden" name="topic_name" value="{{ topic_name }}">
-        <input type="text" name="chat_title" maxlength="100" placeholder="Luo keskustelu...(max 100 merkkiä)" required>
-        <button type="submit">Luo keskustelu</button>
+    <textarea name="chat_title" rows="4" cols="50" maxlength="200"></textarea><br>
+    <input type="submit" value="Aloita keskustelu (max 200 merkkiä!)">
     </form>
 
 </body>

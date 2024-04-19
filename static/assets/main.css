@@ -11,6 +11,12 @@ nav li {
     padding: 0 .5em;
 }
 
+h1 {
+    color: blanchedalmond; /* Otsikon tekstiväri */
+    font-size: 36px; /* Otsikon fonttikoko */
+    text-align: center; /* Keskitä otsikko */
+    text-shadow: 2px 2px 4px #000; /* Lisää varjostus otsikkoon */
+}
 
 form {
     color: blanchedalmond; 
@@ -26,6 +32,14 @@ textarea {
 input {
     background-color: #2f2b3a;
     color: blanchedalmond;
+}
+
+input:hover {
+    color: #1976d2;
+}
+
+textarea:hover {
+    color: #1976d2;
 }
 
 a:link {
