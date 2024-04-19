@@ -93,7 +93,9 @@ def register():
             return render_template("error.html", message="Salasanat eivät täsmää")
         
         result = users.register(username, password1)
-        if result == 2:
+        if result == 3:
+            return render_template("error.html", message="HUOM! käyttäjänimen tulee olla vähintään 2 ja salasanan 8 merkkiä")
+        elif result == 2:
             return render_template("error.html", message="Tämä käyttäjänimi on jo käytössä")
         elif result:
             return redirect("/login")

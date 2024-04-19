@@ -11,7 +11,8 @@ def login(username, password):
     if not user:
         return False
     else:
-        if user.password == password:
+        #if user.password == password:
+        if check_password_hash(user.password, password):
             session["user_id"] = user.id
             return True
         else:
@@ -23,7 +24,10 @@ def logout():
 
 
 def register(username, password):
-    #hash_value = generate_password_hash(password)
+    if len(username.strip())<=1 or len(password.strip())<=7:
+        return 3
+    hash_value = generate_password_hash(password)
+    password = hash_value
     sql_check_username = text("SELECT COUNT(*) FROM users WHERE username = :username")
     result = db.session.execute(sql_check_username, {"username": username})
     username_in_use = result.fetchone()[0]

@@ -9,6 +9,8 @@ def get_messages(chat_name):
 
 def send_message(content, chat_id):
     user_id = users.user_id()
+    if content=="" or content.strip()=="":
+        return False
     
     if user_id == 0:
         return False
@@ -40,6 +42,8 @@ def get_topic_id(topic_name):
     return result[0]
     
 def create_chat(title, user_id, topic_id):
+    if title=="" or title.strip()=="" or len(title.strip())<3:
+        return False
     sql = text("INSERT INTO chats (title, user_id, topic_id, created_at) VALUES(:title, :user_id, :topic_id, NOW())")
     db.session.execute(sql, {"title":title, "user_id":user_id, "topic_id":topic_id})
     db.session.commit()
