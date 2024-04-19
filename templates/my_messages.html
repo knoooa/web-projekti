@@ -9,5 +9,22 @@
     <a href="{{ url_for('welcome') }}">Koti</a> |
     <a href="{{ url_for('chats') }}">Profiili</a> |
     <a href="{{ url_for('index') }}">Kirjaudu ulos tästä</a>
+
+    <h1>Omat viestit</h1>
+    <ul>
+      {% if msgs %}
+          {% for message in msgs %}
+                  <p>Viesti: {{ message[0] }}</p>
+                  <p>Aika: {{ message[2].strftime("%d.%m.%Y %H:%M") }}</p>
+                  <p>Keskustelu: <a href="{{ url_for('chat_messages', chat_name=get_chat_name(message[1])) }}">{{ get_chat_name(message[1]) }}</a></p>
+                  
+                  <hr>
+          {% endfor %}
+      {% else %}
+          Et ole lähettänyt viestejä
+          <hr>
+      {% endif %}
+  </ul>
+
 </body>
 </html>

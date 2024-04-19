@@ -41,7 +41,7 @@ def create_chat():
 @app.route("/my_messages")
 def my_messages():
     msgs = messages.my_messages()
-    return redirect(msgs=msgs)
+    return render_template("my_messages.html", msgs=msgs, get_chat_name=messages.get_chat_name)
 
 #-------------------------------------------------
 
