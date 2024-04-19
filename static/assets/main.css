@@ -11,11 +11,55 @@ nav li {
     padding: 0 .5em;
 }
 
+nav ul {    
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+nav ul li a:hover {
+    background-color: #1f0e3a5d; 
+};
+
+.horizontal-nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.horizontal-nav ul li {
+    display: inline-block;
+    padding: 0 .5em;
+}
+
+.horizontal-nav ul li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: lightskyblue; 
+}
+
+.horizontal-nav ul li a:hover {
+    /*background-color: rgb(47, 20, 82); */
+    color: #1976d2;
+}
+
 h1 {
-    color: blanchedalmond; /* Otsikon tekstiväri */
-    font-size: 36px; /* Otsikon fonttikoko */
-    text-align: center; /* Keskitä otsikko */
-    text-shadow: 2px 2px 4px #000; /* Lisää varjostus otsikkoon */
+    color: blanchedalmond; 
+    font-size: 36px; 
+    text-align: center;
+    text-shadow: 2px 2px 4px #000; 
 }
 
 form {
@@ -35,10 +79,6 @@ input {
 }
 
 input:hover {
-    color: #1976d2;
-}
-
-textarea:hover {
     color: #1976d2;
 }
 

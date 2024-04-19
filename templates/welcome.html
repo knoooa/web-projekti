@@ -6,13 +6,17 @@
 </head>
 
 <body>
-    <p>Tervetuloa, {{ username }}! | 
-        <a href="{{ url_for('welcome') }}">Koti</a> |
-        <a href="{{ url_for('my_messages') }}">Omat viestit</a> |
-        <a href="{{ url_for('chats') }}">Profiili</a> |
-        <a href="{{ url_for('index') }}">Kirjaudu ulos tästä</a> </p>
+    <h3>Tervetuloa, {{ username }}!</h3>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('welcome') }}">Koti</a></li>
+            <li><a href="{{ url_for('my_messages') }}">Omat viestit</a></li>
+            <li><a href="{{ url_for('chats') }}">Profiili</a></li>
+            <li><a href="{{ url_for('index') }}">Kirjaudu ulos tästä</a></li>
+        </ul>
+    </nav>
 
-    <p>Aiheet:</p>
+    <h3>Aiheet:</h3>
     <nav>
     <ul>
         {% for topic in topics %}

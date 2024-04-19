@@ -6,7 +6,12 @@
 </head>
 
 <body>
-        <a href="{{ url_for('index') }}">Takaisin</a> |
+        <div class="horizontal-nav">
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Takaisin</a></li>
+                </ul>
+            </div>
+        <h3>Luo käyttäjä</h3>
         <p></p>
         <form action="/register" method="post">
                 Tunnus: <input type="text" name="username">
