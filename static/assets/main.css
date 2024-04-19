@@ -1,10 +1,46 @@
 body {
     margin: auto;
-    max-width: 45em;
-    font-family: 'Helvetica', 'Arial', sans-serif;
+    max-width: 40em;
+    font-family: 'roboto';
+    background: #1a1625;
+    color: blanchedalmond;
 }
 
 nav li {
     display: inline-block;
     padding: 0 .5em;
 }
+
+
+form {
+    color: blanchedalmond; 
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+textarea {
+    background-color: #2f2b3a;
+    color: blanchedalmond;
+}
+
+input {
+    background-color: #2f2b3a;
+    color: blanchedalmond;
+}
+
+a:link {
+    color: lightskyblue; 
+}
+
+a:visited {
+    color: lightskyblue;
+}
+
+a:hover {
+    color: #1976d2; 
+}
+
+a:active {
+    color: #1976d2;
+}
+
