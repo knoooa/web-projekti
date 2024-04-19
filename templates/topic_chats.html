@@ -17,15 +17,21 @@
     </div>
 
     <h1>{{topic_name}}</h1>
-    <ul>
-        {% if chats %}
-            {% for chat in chats %}
-                <li><a href="{{ url_for('chat_messages', chat_name=chat.title)}}">{{ chat.title }}</a></li>
-            {% endfor %}
-        {% else %}
-            <li>Tällä alueella ei ole vielä yhtään viestiä :( </li>
-        {% endif %}
-    </ul>
+
+    <nav>
+        <ul>
+            {% if chats %}
+
+                {% for chat in chats %}
+                   <li><a href="{{ url_for('chat_messages', chat_name=chat.title)}}">{{ chat.title }}</a></li> 
+                {% endfor %}
+
+            {% else %}
+                <li>Tällä alueella ei ole vielä yhtään viestiä :( </li>
+            {% endif %}
+
+        </ul>
+    </nav>
 
     <form action="{{ url_for('create_chat') }}" method="post">
         <input type="hidden" name="topic_name" value="{{ topic_name }}">

@@ -60,7 +60,7 @@ def created_at(chat_name):
     
 def my_messages():
     user_id = users.user_id()
-    sql = text("SELECT content, chat_id, sent_at FROM messages WHERE user_id=:user_id")
+    sql = text("SELECT content, chat_id, sent_at FROM messages WHERE user_id=:user_id ORDER BY sent_at DESC")
     result = db.session.execute(sql, {"user_id":user_id}).fetchall()
     return result
 
