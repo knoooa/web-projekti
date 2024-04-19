@@ -1,20 +1,30 @@
-<a href="{{ url_for('welcome') }}">Koti</a> |
-<a href="{{ url_for('chats') }}">Keskustelut</a> |
-<a href="{{ url_for('index') }}">Kirjaudu ulos tästä</a>
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/static/assets/main.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 
-<h1>{{topic_name}}</h1>
-<ul>
-    {% if chats %}
-        {% for chat in chats %}
-            <li><a href="{{ url_for('chat_messages', chat_name=chat.title) }}">{{ chat.title }}</a></li>
-        {% endfor %}
-    {% else %}
-        <li>Tällä alueella ei ole vielä yhtään viestiä :(</li>
-    {% endif %}
-</ul>
+<body>
+    <a href="{{ url_for('welcome') }}">Koti</a> |
+    <a href="{{ url_for('chats') }}">Keskustelut</a> |
+    <a href="{{ url_for('index') }}">Kirjaudu ulos tästä</a>
 
-<form action="{{ url_for('create_chat') }}" method="post">
-    <input type="hidden" name="topic_name" value="{{ topic_name }}">
-    <input type="text" name="chat_title" maxlength="100" placeholder="Luo keskustelu...(max 100 merkkiä)" required>
-    <button type="submit">Luo keskustelu</button>
-</form>
+    <h1>{{topic_name}}</h1>
+    <ul>
+        {% if chats %}
+            {% for chat in chats %}
+                <li><a href="{{ url_for('chat_messages', chat_name=chat.title) }}">{{ chat.title }}</a></li>
+            {% endfor %}
+        {% else %}
+            <li>Tällä alueella ei ole vielä yhtään viestiä :(</li>
+        {% endif %}
+    </ul>
+
+    <form action="{{ url_for('create_chat') }}" method="post">
+        <input type="hidden" name="topic_name" value="{{ topic_name }}">
+        <input type="text" name="chat_title" maxlength="100" placeholder="Luo keskustelu...(max 100 merkkiä)" required>
+        <button type="submit">Luo keskustelu</button>
+    </form>
+
+</body>

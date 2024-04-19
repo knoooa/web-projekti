@@ -1,18 +1,27 @@
-<a href="{{ url_for('welcome') }}">Koti</a> |
-<a href="{{ url_for('chats') }}">Keskustelut</a> |
-<a href="{{ url_for('index') }}">Kirjaudu ulos tästä</a>
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/static/assets/main.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 
-<p><span style="color: blue;">{{ user_id }} </span> </p>
-<p></p>{{ chat_name }}</p>
-<hr>
-{% for message in msgs %}
-    <p><span style="color: blue;">{{ message[1] }}, {{ message.sent_at.strftime("%d-%m-%Y %H:%M") }}</span></p>    <p>{{ message[0] }}</p>
+<body>
+    <a href="{{ url_for('welcome') }}">Koti</a> |
+    <a href="{{ url_for('chats') }}">Keskustelut</a> |
+    <a href="{{ url_for('index') }}">Kirjaudu ulos tästä</a>
+
+    <p><span style="color: blue;">{{ user_id }} </span> </p>
+    <p></p>{{ chat_name }}</p>
     <hr>
-{% endfor %}
-<form action="/send" method="post">
-    <input type="hidden" name="chat_name" value="{{ chat_name }}">
-    <textarea name="content" rows="4" cols="50"></textarea><br>
-    <input type="submit" value="Lähetä viesti">
-</form>
-<p></p>
-<a href="/">Kirjaudu ulos tästä</a>
+    {% for message in msgs %}
+        <p><span style="color: blue;">{{ message[1] }}, {{ message.sent_at.strftime("%d.%m.%Y %H:%M") }}</span></p>    <p>{{ message[0] }}</p>
+        <hr>
+    {% endfor %}
+    <form action="/send" method="post">
+        <input type="hidden" name="chat_name" value="{{ chat_name }}">
+        <textarea name="content" rows="4" cols="50"></textarea><br>
+        <input type="submit" value="Lähetä viesti">
+    </form>
+    <p></p>
+    <a href="/">Kirjaudu ulos tästä</a>
+</body>
