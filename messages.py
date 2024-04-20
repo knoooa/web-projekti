@@ -11,7 +11,6 @@ def send_message(content, chat_id):
     user_id = users.user_id()
     if content=="" or content.strip()=="":
         return False
-    
     if user_id == 0:
         return False
     
@@ -42,11 +41,18 @@ def get_topic_id(topic_name):
     return result[0]
     
 def create_chat(title, user_id, topic_id):
-    if title=="" or title.strip()=="" or len(title.strip())<3:
+    if len(title.strip())<3:
         return False
+    sql = text("SELECT title FROM chats")
+    result = db.session.execute(sql).fetchall()
+    for row in result:
+        if title == row[0]:
+            return False
+    
     sql = text("INSERT INTO chats (title, user_id, topic_id, created_at) VALUES(:title, :user_id, :topic_id, NOW())")
     db.session.execute(sql, {"title":title, "user_id":user_id, "topic_id":topic_id})
     db.session.commit()
+    return True
 
 def get_username(chat_name):
     sql = text("SELECT username FROM users WHERE id = (SELECT user_id FROM chats WHERE title = :chat_name)")

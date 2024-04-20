@@ -35,15 +35,17 @@ def create_chat():
     topic_name = request.form['topic_name'] 
     topic_id = messages.get_topic_id(topic_name)
     user_id = users.user_id()
-    messages.create_chat(chat_title, user_id, topic_id)
-    return redirect(url_for('topic_chats', topic_name=topic_name))
+    if messages.create_chat(chat_title, user_id, topic_id):
+        return redirect(url_for('topic_chats', topic_name=topic_name))
+    else:
+        return render_template("error.html", message="viestiä ei voitu lähettää, keksi jotain uniikkia :-)")
 
 @app.route("/my_messages")
 def my_messages():
     msgs = messages.my_messages()
     return render_template("my_messages.html", msgs=msgs, get_chat_name=messages.get_chat_name)
 
-#-------------------------------------------------
+#----------------------------------------------------------
 
 @app.route("/new_message")
 def new():
@@ -60,7 +62,7 @@ def send():
     else:
         return render_template("error.html", message="Viestiä ei voitu lähettää, yritä uudelleen")
 
-#-------------------------------------------
+#-----------------------------------------------------------
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -107,5 +109,3 @@ def register():
 def logout():
     users.logout()
     return redirect("/")
-
-#-------------------------------------------
