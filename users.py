@@ -23,7 +23,7 @@ def logout():
 
 
 def register(username, password):
-    if len(username.strip())<=1 or len(password.strip())<=7:
+    if len(username.strip())<=1 or len(password.strip())<=3:
         return 3
     hash_value = generate_password_hash(password)
     password = hash_value
@@ -51,7 +51,7 @@ def check_old_password(old_password):
     sql = text("SELECT password FROM users WHERE id=:id")
     result = db.session.execute(sql, {"id": id})
     user = result.fetchone()
-    
+
     if check_password_hash(user.password,old_password):
         return True
     else:
@@ -68,3 +68,15 @@ def change_password(new_password):
         return True
     return False
                 
+
+def delete_user(userid):
+        sql2 = text("DELETE FROM messages WHERE user_id = :userid") #viestit
+        db.session.execute(sql2, {"userid": userid})
+
+        sql3 = text("DELETE FROM chats WHERE user_id = :userid") #chatit
+        db.session.execute(sql3, {"userid": userid})
+
+        sql = text("DELETE FROM users WHERE id = :userid") #käyttäjä
+        db.session.execute(sql, {"userid": userid})
+
+        db.session.commit()

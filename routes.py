@@ -50,6 +50,16 @@ def profile():
     username = session.get("username")
     return render_template("profile.html", username=username)
 
+@app.route("/remove_account")
+def remove_account():
+    return render_template("remove_account.html", username=session.get("username"), userid=users.user_id())
+
+@app.route("/delete_user")
+def delete_user():
+    userid = users.user_id()
+    users.delete_user(userid)
+    return render_template("index.html")
+
 @app.route("/change_password", methods=["POST", "GET"])
 def change_password():
     if request.method == "GET":
@@ -123,7 +133,7 @@ def register():
         
         result = users.register(username, password1)
         if result == 3:
-            return render_template("error.html", message="HUOM! käyttäjänimen tulee olla vähintään 2 ja salasanan 8 merkkiä")
+            return render_template("error.html", message="HUOM! käyttäjänimen tulee olla vähintään 2 ja salasanan 4 merkkiä")
         elif result == 2:
             return render_template("error.html", message="Tämä käyttäjänimi on jo käytössä")
         elif result:

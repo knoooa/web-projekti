@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="static/assets/main.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+        <div class="horizontal-nav">
+                <ul>
+                    <li><a href="{{ url_for('profile') }}">Takaisin</a></li>
+                </ul>
+            </div>
+    <h3>Poista käyttäjä</h3>
+
+    <p>Oletko varma, että haluat poistaa käyttäjän "{{ username }}"?</p>
+
+    <form action="/delete_user">
+        <button type="submit" name="confirm" value="yes">Kyllä</button> <a>HUOM, Käyttäjän poistoa ei voi peruuttaa!</a>
+    </form>
+    <br>
+    <form action="/profile" method="get">
+        <button type="submit">Peruuta</button>
+    </form>
+</body>
+</html>
