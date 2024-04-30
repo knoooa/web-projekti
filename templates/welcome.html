@@ -20,7 +20,13 @@
     <nav>
     <ul>
         {% for topic in topics %}
-            <li><a href="{{ url_for('topic_chats', topic_name=topic[0]) }}">{{ topic[0] }}</a></li>
+        <li>
+            <a href="{{ url_for('topic_chats', topic_name=topic[0]) }}">
+                {{ topic[0] }}
+                <span style="color: white;"> &nbsp; | &nbsp; </span> 
+                <span style="display: inline;">Viestejä: {{ get_count(topic[0]) }}</span>
+            </a>
+        </li>        
         {% endfor %}
     </ul>
     </nav>

@@ -78,3 +78,19 @@ def get_chat_name(chat_id):
     sql = text("SELECT title FROM chats WHERE id=:chat_id")
     result = db.session.execute(sql, {"chat_id":chat_id}).fetchone()
     return result[0]
+
+def get_count(chat_name):
+    chat_id = get_chat_id(chat_name)
+    sql = text("SELECT COUNT(id) FROM messages WHERE chat_id = :chat_id")
+    res = db.session.execute(sql, {"chat_id": chat_id}).fetchone()
+    if res:
+        return res[0]
+    return 0
+
+def get_title_count(topic_name):
+    topic_id = get_topic_id(topic_name)
+    sql = text("SELECT COUNT(id) FROM chats WHERE topic_id = :topic_id")
+    res = db.session.execute(sql, {"topic_id": topic_id}).fetchone()
+    if res:
+        return res[0]
+    return 0

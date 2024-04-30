@@ -80,3 +80,4 @@ def delete_user(userid):
         db.session.execute(sql, {"userid": userid})
 
         db.session.commit()
+

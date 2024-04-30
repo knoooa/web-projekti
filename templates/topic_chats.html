@@ -10,7 +10,7 @@
         <ul>
             <li><a href="{{ url_for('welcome') }}">Koti</a></li> |
             <li><a href="{{ url_for('my_messages') }}">Omat viestit</a></li> |
-            <li><a href="{{ url_for('chats') }}">Profiili</a></li> |
+            <li><a href="{{ url_for('profile') }}">Profiili</a></li> |
             <li><a href="{{ url_for('index') }}">Kirjaudu ulos tästä</a></li> |
         </ul>
         
@@ -23,7 +23,16 @@
             {% if chats %}
 
                 {% for chat in chats %}
-                   <li><a href="{{ url_for('chat_messages', chat_name=chat.title)}}">{{ chat.title }}</a></li> 
+                <li>
+                    <a href="{{ url_for('chat_messages', chat_name=chat.title) }}">
+                        {{ chat.title }} 
+                         <span style="color: white;"> &nbsp; | &nbsp; </span> 
+                         <span>Viestejä: {{ get_count(chat.title) }}</span>
+                         <span style="color: white;"> &nbsp; | &nbsp; </span> 
+                         <span>{{ created_at(chat.title).strftime('%d.%m.%Y %H:%M' ) }}</span>
+                    </a>
+                    
+                </li>
                 {% endfor %}
 
             {% else %}

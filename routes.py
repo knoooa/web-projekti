@@ -10,12 +10,12 @@ def index():
 def welcome():
     username = session.get("username")
     topics = messages.get_topics()
-    return render_template("welcome.html", username=username, topics=topics)
+    return render_template("welcome.html", username=username, topics=topics, get_count=messages.get_title_count)
     
 @app.route("/topic/<topic_name>")
 def topic_chats(topic_name):
     chats = messages.get_chats(topic_name)
-    return render_template("topic_chats.html", chats=chats, topic_name=topic_name)
+    return render_template("topic_chats.html", chats=chats, topic_name=topic_name, get_count=messages.get_count, created_at=messages.created_at)
 
 @app.route("/chat/<chat_name>")
 def chat_messages(chat_name):
