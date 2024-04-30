@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/static/assets/main.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <div class="horizontal-nav">
+    <ul>
+        <li><a href="{{ url_for('welcome') }}">Koti</a></li> |
+        <li><a href="{{ url_for('my_messages') }}">Omat viestit</a></li> |
+        <li><a href="{{ url_for('profile') }}">Profiili</a></li> |
+        <li><a href="{{ url_for('index') }}">Kirjaudu ulos tästä</a></li> |
+    </ul>
+</div>
+
+    <p>Olet kirjautuneena sisään nimellä {{ username }} </p>
+    <a href="{{ url_for('change_password') }}">Vaihda salasana</a>
+    <br>
+    <br>
+    <a href="{{ url_for('index') }}">Poista käyttäjä</a>
+
+</body>
+</html>

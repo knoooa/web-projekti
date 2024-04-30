@@ -11,7 +11,6 @@ def login(username, password):
     if not user:
         return False
     else:
-        #if user.password == password:
         if check_password_hash(user.password, password):
             session["user_id"] = user.id
             return True
@@ -46,3 +45,26 @@ def register(username, password):
 
 def user_id():
     return session.get("user_id",0)
+
+def check_old_password(old_password):
+    id = user_id()
+    sql = text("SELECT password FROM users WHERE id=:id")
+    result = db.session.execute(sql, {"id": id})
+    user = result.fetchone()
+    
+    if check_password_hash(user.password,old_password):
+        return True
+    else:
+        return False
+
+def change_password(new_password):
+    userid = user_id()
+    hash_value = generate_password_hash(new_password)
+    new_password = hash_value
+    sql = text("UPDATE users SET password = :new_password WHERE id = :userid")
+    res = db.session.execute(sql, {"new_password":new_password, "userid":userid})
+    db.session.commit()
+    if res.rowcount>0:
+        return True
+    return False
+                

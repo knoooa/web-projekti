@@ -45,6 +45,33 @@ def my_messages():
     msgs = messages.my_messages()
     return render_template("my_messages.html", msgs=msgs, get_chat_name=messages.get_chat_name)
 
+@app.route("/profile")
+def profile():
+    username = session.get("username")
+    return render_template("profile.html", username=username)
+
+@app.route("/change_password", methods=["POST", "GET"])
+def change_password():
+    if request.method == "GET":
+        return render_template("change_password.html")
+    else:
+        old = request.form["old"]
+        new_password = request.form["new1"]
+        new_password2 = request.form["new2"]
+
+        if new_password != new_password2:
+            return render_template("error.html", message="salasanat eivät täsmää")
+        if not users.check_old_password(old):
+            return render_template("error.html", message="vanha salasana on väärin")
+
+        result = users.change_password(new_password)
+
+        if result:
+            return render_template("index.html")
+        else:
+            return render_template("error.html", message="virhe")
+
+
 #----------------------------------------------------------
 
 @app.route("/new_message")
