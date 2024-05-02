@@ -3,7 +3,7 @@ import users
 from sqlalchemy import text
 
 def get_messages(chat_name):
-    sql = text("SELECT M.content, U.username, M.sent_at FROM messages M JOIN users U ON M.user_id = U.id \
+    sql = text("SELECT M.content, U.username, M.sent_at, M.id FROM messages M JOIN users U ON M.user_id = U.id \
                WHERE M.chat_id = (SELECT id FROM chats WHERE title = :chat_name) ORDER BY M.id")
     results = db.session.execute(sql, {"chat_name": chat_name})
     return results.fetchall()
@@ -132,10 +132,20 @@ def delete_topic(topic_name):
         db.session.rollback()
         return False
     
-def delete_chat(chat_id):
+def delete_chat(chat_name):
     try:
-        sql = text("DELETE FROM chats WHERE title=:chat_id")
-        db.session.execute(sql, {"chat_id":chat_id})
+        sql = text("DELETE FROM chats WHERE title=:chat_name")
+        db.session.execute(sql, {"title":chat_name})
+        db.session.commit()
+        return True
+    except Exception as e:
+        db.session.rollback()
+        return False
+    
+def delete_message(message_id):
+    try:
+        sql = text("DELETE FROM messages WHERE id=:id")
+        db.session.execute(sql, {"id":int(message_id)})
         db.session.commit()
         return True
     except Exception as e:

@@ -101,6 +101,8 @@ def create_topic():
     else:
         return render_template("error.html", message="lisääminen epäonnistui")
     
+#----------------------------------------------
+    
 @app.route("/delete_topic/<topic_name>", methods=["GET", "POST"])
 def delete_topic(topic_name):
     delete = messages.delete_topic(topic_name)
@@ -114,6 +116,14 @@ def delete_chat(chat_name, topic_name):
     if delete:
         return redirect(url_for("topic_chats", topic_name=topic_name))
     return render_template("error.html", message="virhe")
+
+@app.route("/delete_message/<chat_name>/<message_id>", methods=["GET", "POST"])
+def delete_message(chat_name, message_id):
+    delete = messages.delete_message(message_id)
+    if delete:
+        return redirect(url_for("chat_messages", chat_name=chat_name))
+    elif delete==False:
+        return render_template("error.html", message="virhe")
 
 #----------------------------------------------------------
 
