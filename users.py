@@ -81,3 +81,11 @@ def delete_user(userid):
 
         db.session.commit()
 
+
+def admin_status(user_id):
+    sql = text("SELECT admin_status FROM admin WHERE user_id=:user_id")
+    res = db.session.execute(sql, {"user_id":user_id}).fetchone()
+    if res:
+        return 1
+    else:
+        return 0

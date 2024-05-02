@@ -31,6 +31,7 @@
                          <span style="color: white;"> &nbsp; | &nbsp; </span> 
                          <span>{{ created_at(chat.title).strftime('%d.%m.%Y %H:%M' ) }}</span>
                     </a>
+                    <hr>    
                     
                 </li>
                 {% endfor %}
@@ -41,7 +42,7 @@
 
         </ul>
     </nav>
-
+    <br>
     <form action="{{ url_for('create_chat') }}" method="post">
         <input type="hidden" name="topic_name" value="{{ topic_name }}">
     <textarea name="chat_title" rows="4" cols="50" maxlength="200"></textarea><br>

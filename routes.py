@@ -10,7 +10,8 @@ def index():
 def welcome():
     username = session.get("username")
     topics = messages.get_topics()
-    return render_template("welcome.html", username=username, topics=topics, get_count=messages.get_title_count)
+    admin_status = users.admin_status(users.user_id())
+    return render_template("welcome.html", username=username, adminstatus=admin_status, topics=topics, get_count=messages.get_title_count)
     
 @app.route("/topic/<topic_name>")
 def topic_chats(topic_name):
@@ -89,8 +90,15 @@ def search():
         return render_template('found.html', ids=results, get_content=messages.get_content, get_chat=messages.get_chat_name)
     else:
         return render_template('search.html')
-
-
+    
+@app.route("/create_topic", methods=["POST"])
+def create_topic():
+    topic_name = request.form["topic_name"]
+    create = messages.create_topic(topic_name)
+    if create:
+        return redirect(url_for("welcome"))
+    else:
+        return render_template("error.html", message="lisääminen epäonnistui")
 
 #----------------------------------------------------------
 
@@ -120,9 +128,11 @@ def login():
         password = request.form["password"]
         if users.login(username, password):
             session["username"] = username
-            return redirect("/welcome")
+            return redirect(url_for("welcome"))
         else:
             return render_template("error.html", message="Väärä tunnus tai salasana")
+    
+
         
         
 @app.route("/register", methods=["GET"])

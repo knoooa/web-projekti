@@ -3,7 +3,8 @@ import users
 from sqlalchemy import text
 
 def get_messages(chat_name):
-    sql = text("SELECT M.content, U.username, M.sent_at FROM messages M JOIN users U ON M.user_id = U.id WHERE M.chat_id = (SELECT id FROM chats WHERE title = :chat_name) ORDER BY M.id")
+    sql = text("SELECT M.content, U.username, M.sent_at FROM messages M JOIN users U ON M.user_id = U.id \
+               WHERE M.chat_id = (SELECT id FROM chats WHERE title = :chat_name) ORDER BY M.id")
     results = db.session.execute(sql, {"chat_name": chat_name})
     return results.fetchall()
 
@@ -20,7 +21,7 @@ def send_message(content, chat_id):
     return True
 
 def get_topics():
-    sql = text("SELECT topic_name FROM topic")
+    sql = text("SELECT topic_name FROM topic ORDER BY topic_name")
     results = db.session.execute(sql)
     return results.fetchall()
 
@@ -108,3 +109,15 @@ def get_content(id):
     res = db.session.execute(sql, {"id":id[0]}).fetchone()
     return res
     
+def create_topic(topic_name):
+    topic_name = topic_name[0].capitalize() + topic_name[1:].lower()
+    if len(topic_name) <= 20 and len(topic_name.strip()) > 0:
+        try:
+            sql = text("INSERT INTO topic (topic_name) VALUES (:topic_name)")
+            db.session.execute(sql, {"topic_name": topic_name})
+            db.session.commit()
+            return True
+        except Exception as e:
+            db.session.rollback()
+            return False
+    return False
