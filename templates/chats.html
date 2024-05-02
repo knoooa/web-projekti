@@ -19,6 +19,7 @@
     <h4><span>{{ user_id }}, {{ created_at.strftime("%d.%m.%Y %H:%M") }}</span></h4>
 
     <h4>{{ chat_name }}</h4>
+    
     <hr>
     {% for message in msgs %}
         <h4><span >{{ message[1] }}, {{ message.sent_at.strftime("%d.%m.%Y %H:%M") }}</span></h4>    <p>{{ message[0] }}</p>

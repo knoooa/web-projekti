@@ -26,11 +26,6 @@ def chat_messages(chat_name):
     created_at = messages.created_at(chat_name)
     return render_template("chats.html", msgs=msgs, created_at=created_at, chat_name=chat_name, user_id=username)
 
-@app.route("/chats")
-def chats():
-    list = messages.get_messages()
-    return render_template("chats.html", count=len(list), messages=list)
-
 @app.route("/create_chat", methods=["POST", "GET"])
 def create_chat():
     chat_title = request.form['chat_title']
@@ -124,6 +119,7 @@ def delete_message(chat_name, message_id):
         return redirect(url_for("chat_messages", chat_name=chat_name))
     elif delete==False:
         return render_template("error.html", message="virhe")
+    
 
 #----------------------------------------------------------
 
