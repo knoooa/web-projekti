@@ -26,7 +26,7 @@ def get_topics():
     return results.fetchall()
 
 def get_chats(topic_name):
-    sql = text("SELECT title FROM chats WHERE topic_id = (SELECT id FROM topic WHERE topic_name = :topic_name)")
+    sql = text("SELECT title FROM chats WHERE topic_id = (SELECT id FROM topic WHERE topic_name = :topic_name) ORDER BY created_at DESC")
     res = db.session.execute(sql, {"topic_name": topic_name})
     return res.fetchall()
 

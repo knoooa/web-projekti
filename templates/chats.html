@@ -16,15 +16,29 @@
         </ul>
     </div>
 
-    <h4><span>{{ user_id }}, {{ created_at.strftime("%d.%m.%Y %H:%M") }}</span></h4>
-
-    <h4>{{ chat_name }}</h4>
+    <br>
     
+    <span> {{ user_id }}
+    <span style="color: white;"> &nbsp; | &nbsp; </span>
+    {{ created_at.strftime("%d.%m.%Y %H:%M") }}</span> <br> <br>
+    <span style="font-size: 1.1em; font-style: italic; font-weight: bold;">{{ chat_name }}</span> <br> <br>
+
     <hr>
+    <br>
+    
     {% for message in msgs %}
-        <h4><span >{{ message[1] }}, {{ message.sent_at.strftime("%d.%m.%Y %H:%M") }}</span></h4>    <p>{{ message[0] }}</p>
-        <span><a href="{{ url_for('delete_message', chat_name=chat_name, message_id=message.id) }}">Poista viesti</a></span>
+        <span >{{ message[1] }}
+        <span style="color: white;"> &nbsp; | &nbsp; </span>
+        {{ message.sent_at.strftime("%d.%m.%Y %H:%M") }}</span> <br> <br>
+
+        <span style="font-size: 1.1em; font-style: italic;">{{ message[0] }}</span> <br> <br>
+        
+        {% if adminstatus == 1 %}
+            <span><a href="{{ url_for('delete_message', chat_name=chat_name, message_id=message.id) }}">Poista viesti</a></span>
+        {% endif %}
+        
         <hr>
+        <br>
     {% endfor %}
 
     <form action="/send" method="post">

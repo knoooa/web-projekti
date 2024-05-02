@@ -17,7 +17,7 @@ def welcome():
 def topic_chats(topic_name):
     chats = messages.get_chats(topic_name)
     adminstatus = users.admin_status(users.user_id())
-    return render_template("topic_chats.html", chats=chats, topic_name=topic_name, get_count=messages.get_count, created_at=messages.created_at, adminstatus=adminstatus)
+    return render_template("topic_chats.html", chats=chats, topic_name=topic_name, get_count=messages.get_count, created_at=messages.created_at, adminstatus=adminstatus, get_username=messages.get_username)
 
 @app.route("/chat/<chat_name>")
 def chat_messages(chat_name):

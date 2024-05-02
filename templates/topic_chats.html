@@ -25,16 +25,21 @@
                 {% for chat in chats %}
                 <li>
                     <a href="{{ url_for('chat_messages', chat_name=chat.title) }}">
-                        {{ chat.title }} 
-                         <span style="color: white;"> &nbsp; | &nbsp; </span> 
+                        <span style="font-size: 1.1em; font-style: italic;">{{ chat.title }}</span>
+                        <br>
+                        <br>
+                         <span>{{ get_username(chat.title) }}</span> 
+                         <span style="color: white;"> &nbsp; | &nbsp; </span>
                          <span>Viestejä: {{ get_count(chat.title) }}</span>
                          <span style="color: white;"> &nbsp; | &nbsp; </span> 
                          <span>{{ created_at(chat.title).strftime('%d.%m.%Y %H:%M' ) }}</span>
+
                          {% if adminstatus == 1 %}
-                            <span>
+                            <span>  
                                 <a href="{{ url_for('delete_chat', chat_name=chat.title, topic_name=topic_name) }}">Poista keskustelu</a>
                             </span>
                         {% endif %}
+
                     </a>
                     <hr>    
                     
