@@ -3,7 +3,7 @@ import users
 from sqlalchemy import text
 
 def get_messages(chat_name):
-    sql = text("SELECT M.content, U.username, M.sent_at, M.id FROM messages M JOIN users U ON M.user_id = U.id \
+    sql = text("SELECT M.content, U.username, M.sent_at, M.id, M.user_id FROM messages M JOIN users U ON M.user_id = U.id \
                WHERE M.chat_id = (SELECT id FROM chats WHERE title = :chat_name) ORDER BY M.id")
     results = db.session.execute(sql, {"chat_name": chat_name})
     return results.fetchall()
@@ -123,21 +123,34 @@ def create_topic(topic_name):
     return False
 
 def delete_topic(topic_name):
+    topic_id = get_topic_id(topic_name)
+    chats = get_chats(topic_name)
+
     try:
+        for chat in chats:
+            delete_chat(chat[0])
+
         sql = text("DELETE FROM topic WHERE topic_name=:topic_name")
         db.session.execute(sql, {"topic_name":topic_name})
         db.session.commit()
         return True
     except Exception as e:
         db.session.rollback()
+        print("Virhe poistettaessa viestiä:", str(e))
         return False
     
 def delete_chat(chat_name):
+    chat_id = get_chat_id(chat_name)
     try:
+        del_msg = text("DELETE FROM messages WHERE chat_id=:chat_id")
+        db.session.execute(del_msg, {"chat_id":chat_id})
+        db.session.commit()
+                           
         sql = text("DELETE FROM chats WHERE title=:chat_name")
-        db.session.execute(sql, {"title":chat_name})
+        db.session.execute(sql, {"chat_name":chat_name})
         db.session.commit()
         return True
+    
     except Exception as e:
         db.session.rollback()
         return False

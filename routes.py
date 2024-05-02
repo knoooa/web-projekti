@@ -24,7 +24,8 @@ def chat_messages(chat_name):
     msgs = messages.get_messages(chat_name)
     username = messages.get_username(chat_name)
     created_at = messages.created_at(chat_name)
-    return render_template("chats.html", msgs=msgs, created_at=created_at, chat_name=chat_name, user_id=username)
+    adminstatus = users.admin_status(users.user_id())
+    return render_template("chats.html", msgs=msgs, created_at=created_at, chat_name=chat_name, username=username, user_id=users.user_id(), adminstatus=adminstatus)
 
 @app.route("/create_chat", methods=["POST", "GET"])
 def create_chat():

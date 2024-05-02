@@ -6,7 +6,10 @@
 </head>
 
 <body>
-    <h3>Tervetuloa, {{ username }}! (Olet kirjautunut sisään ylläpitäjänä, voit luoda ja poistaa alueita)</h3>
+    <h3>Tervetuloa, {{ username }}!</h3>
+    {% if adminstatus == 1 %}
+        <h4>Olet kirjautunut sisään ylläpitäjänä; voit luoda ja poistaa keskustelualueita, keskusteluita ja viestejä</h4>
+    {% endif %}
     <nav>
         <ul>
             <li><a href="{{ url_for('welcome') }}">Koti</a></li>
