@@ -30,6 +30,11 @@
                          <span>Viestejä: {{ get_count(chat.title) }}</span>
                          <span style="color: white;"> &nbsp; | &nbsp; </span> 
                          <span>{{ created_at(chat.title).strftime('%d.%m.%Y %H:%M' ) }}</span>
+                         {% if adminstatus == 1 %}
+                            <span>
+                                <a href="{{ url_for('delete_chat', chat_name=chat.title, topic_name=topic_name) }}">Poista keskustelu</a>
+                            </span>
+                        {% endif %}
                     </a>
                     <hr>    
                     
@@ -38,6 +43,7 @@
 
             {% else %}
                 <li>Tällä alueella ei ole vielä yhtään viestiä :( </li>
+
             {% endif %}
 
         </ul>
@@ -45,8 +51,8 @@
     <br>
     <form action="{{ url_for('create_chat') }}" method="post">
         <input type="hidden" name="topic_name" value="{{ topic_name }}">
-    <textarea name="chat_title" rows="4" cols="50" maxlength="200"></textarea><br>
-    <input type="submit" value="Aloita keskustelu (3 - 200 merkkiä!)">
+        <textarea name="chat_title" rows="4" cols="50" maxlength="200"></textarea><br>
+        <input type="submit" value="Aloita keskustelu (3 - 200 merkkiä!)">
     </form>
 
 </body>

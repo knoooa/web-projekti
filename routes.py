@@ -16,7 +16,8 @@ def welcome():
 @app.route("/topic/<topic_name>")
 def topic_chats(topic_name):
     chats = messages.get_chats(topic_name)
-    return render_template("topic_chats.html", chats=chats, topic_name=topic_name, get_count=messages.get_count, created_at=messages.created_at)
+    adminstatus = users.admin_status(users.user_id())
+    return render_template("topic_chats.html", chats=chats, topic_name=topic_name, get_count=messages.get_count, created_at=messages.created_at, adminstatus=adminstatus)
 
 @app.route("/chat/<chat_name>")
 def chat_messages(chat_name):
@@ -105,6 +106,13 @@ def delete_topic(topic_name):
     delete = messages.delete_topic(topic_name)
     if delete:
         return redirect(url_for("welcome"))
+    return render_template("error.html", message="virhe")
+
+@app.route("/delete_chat/<topic_name>/<chat_name>", methods=["GET", "POST"])
+def delete_chat(chat_name, topic_name):
+    delete = messages.delete_chat(chat_name)
+    if delete:
+        return redirect(url_for("topic_chats", topic_name=topic_name))
     return render_template("error.html", message="virhe")
 
 #----------------------------------------------------------

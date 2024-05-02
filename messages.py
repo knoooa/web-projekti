@@ -131,3 +131,13 @@ def delete_topic(topic_name):
     except Exception as e:
         db.session.rollback()
         return False
+    
+def delete_chat(chat_id):
+    try:
+        sql = text("DELETE FROM chats WHERE title=:chat_id")
+        db.session.execute(sql, {"chat_id":chat_id})
+        db.session.commit()
+        return True
+    except Exception as e:
+        db.session.rollback()
+        return False
