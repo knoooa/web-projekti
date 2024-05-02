@@ -94,3 +94,17 @@ def get_title_count(topic_name):
     if res:
         return res[0]
     return 0
+
+def search(word):
+    sql = text("SELECT id FROM messages WHERE content LIKE :word")
+    res = db.session.execute(sql, {"word":f'%{word}%'}).fetchall()
+    if res or res!=None:
+        return res
+    else:
+        return "Ei viestejä"
+
+def get_content(id):
+    sql = text("SELECT * FROM messages WHERE id=:id")
+    res = db.session.execute(sql, {"id":id[0]}).fetchone()
+    return res
+    

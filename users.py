@@ -70,13 +70,13 @@ def change_password(new_password):
                 
 
 def delete_user(userid):
-        sql2 = text("DELETE FROM messages WHERE user_id = :userid") #viestit
+        sql2 = text("DELETE FROM messages WHERE user_id = :userid") 
         db.session.execute(sql2, {"userid": userid})
 
-        sql3 = text("DELETE FROM chats WHERE user_id = :userid") #chatit
+        sql3 = text("DELETE FROM chats WHERE user_id = :userid")
         db.session.execute(sql3, {"userid": userid})
 
-        sql = text("DELETE FROM users WHERE id = :userid") #käyttäjä
+        sql = text("DELETE FROM users WHERE id = :userid")
         db.session.execute(sql, {"userid": userid})
 
         db.session.commit()

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="static/assets/main.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <ul>
+        {% if ids %}
+            {% for id in ids %}
+            {% set message = get_content(id) %}
+                    <p>Viesti: {{ message.content }}</p>
+                    <p>Aika: {{ message.sent_at.strftime("%d.%m.%Y %H:%M") }}</p>
+                    <p>Keskustelu: <a href="{{ url_for('chat_messages', chat_name=get_chat(message.chat_id)) }}">{{ get_chat(message.chat_id) }}</a></p>                
+                    <hr>
+            {% endfor %}
+            {% else %}
+            <p>Viestejä ei löytynyt</p>
+        {% endif %}
+
+    </ul>
+</body>
+</html> 

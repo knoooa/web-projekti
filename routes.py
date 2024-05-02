@@ -80,6 +80,16 @@ def change_password():
             return render_template("index.html")
         else:
             return render_template("error.html", message="virhe")
+        
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    if request.method == 'POST':
+        search_query = request.form['search_query']
+        results = messages.search(search_query)
+        return render_template('found.html', ids=results, get_content=messages.get_content, get_chat=messages.get_chat_name)
+    else:
+        return render_template('search.html')
+
 
 
 #----------------------------------------------------------
