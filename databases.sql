@@ -6,8 +6,7 @@ CREATE TABLE users (
 CREATE TABLE admin (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users,
-    admin_status INTEGER
-);
+    admin_status INTEGER);
 
 CREATE TABLE topic (
     id SERIAL PRIMARY KEY,

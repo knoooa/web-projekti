@@ -99,6 +99,13 @@ def create_topic():
         return redirect(url_for("welcome"))
     else:
         return render_template("error.html", message="lisääminen epäonnistui")
+    
+@app.route("/delete_topic/<topic_name>", methods=["GET", "POST"])
+def delete_topic(topic_name):
+    delete = messages.delete_topic(topic_name)
+    if delete:
+        return redirect(url_for("welcome"))
+    return render_template("error.html", message="virhe")
 
 #----------------------------------------------------------
 

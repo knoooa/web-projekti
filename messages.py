@@ -121,3 +121,13 @@ def create_topic(topic_name):
             db.session.rollback()
             return False
     return False
+
+def delete_topic(topic_name):
+    try:
+        sql = text("DELETE FROM topic WHERE topic_name=:topic_name")
+        db.session.execute(sql, {"topic_name":topic_name})
+        db.session.commit()
+        return True
+    except Exception as e:
+        db.session.rollback()
+        return False
