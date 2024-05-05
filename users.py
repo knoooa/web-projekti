@@ -24,7 +24,7 @@ def logout():
 
 
 def register(username, password):
-    if not (1 < len(username.strip()) <= 15) or not (3 <= len(password.strip()) <= 20):
+    if not (1 < len(username.strip()) <= 15) or not (3 < len(password.strip()) <= 20):
         return 3
     hash_value = generate_password_hash(password)
     password = hash_value
@@ -70,6 +70,7 @@ def change_password(new_password):
                 
 
 def delete_user(userid):
+    try:
         sql = text("DELETE FROM messages WHERE user_id = :userid") 
         db.session.execute(sql, {"userid": userid})
 
@@ -83,6 +84,8 @@ def delete_user(userid):
         db.session.execute(sql4, {"userid": userid})
 
         db.session.commit()
+    except:
+        return False
 
 
 def admin_status(user_id):

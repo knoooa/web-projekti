@@ -24,3 +24,14 @@
 
 </body>
 </html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var message = "{{ get_flashed_messages()[0] }}" || "";
+    if (message) {
+      setTimeout(function() {
+        alert(message);
+      }, 100);
+    }
+  });
+</script>

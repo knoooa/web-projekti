@@ -23,3 +23,17 @@
                 <input type="submit" value="Luo tunnus">
         </form>
 </body>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    function hello() {
+      var message = "{{ message }}";
+      if (message) {
+        setTimeout(function() {
+          alert(message);
+        }, 100);
+      }
+    }
+    hello(); 
+  });
+</script>

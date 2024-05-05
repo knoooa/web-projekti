@@ -44,7 +44,18 @@
     <form action="/send" method="post">
         <input type="hidden" name="chat_name" value="{{ chat_name }}">
         <textarea name="content" rows="4" cols="50" maxlength="200"></textarea><br>
-        <input type="submit" value="Lähetä viesti (max 200 merkkiä!)">
+        <input type="submit" value="Lähetä viesti (1-200 merkkiä!)">
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
 </body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var message = "{{ get_flashed_messages()[0] }}" || "";
+      if (message) {
+        setTimeout(function() {
+          alert(message);
+        }, 100);
+      }
+    });
+</script>

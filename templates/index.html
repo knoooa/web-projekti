@@ -22,3 +22,29 @@
     <a href="/register">Tai luo käyttäjä</a>
 </body> 
 </html>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    function hello() {
+      var message = "{{ message }}";
+      if (message) {
+        setTimeout(function() {
+          alert(message);
+        }, 100);
+      }
+    }
+    hello(); 
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var message = "{{ get_flashed_messages()[0] }}" || "";
+    if (message) {
+      setTimeout(function() {
+        alert(message);
+      }, 100);
+    }
+  });
+</script>

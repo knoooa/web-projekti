@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, redirect, session, url_for, abort
+from flask import render_template, request, redirect, session, url_for, abort, flash
 import users, messages, secrets
 
 @app.route("/")
@@ -29,17 +29,18 @@ def chat_messages(chat_name):
 
 @app.route("/create_chat", methods=["POST", "GET"])
 def create_chat():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     chat_title = request.form['chat_title']
     topic_name = request.form['topic_name'] 
     topic_id = messages.get_topic_id(topic_name)
     user_id = users.user_id()
 
-    if session["csrf_token"] != request.form["csrf_token"]:
-        abort(403)
-    elif messages.create_chat(chat_title, user_id, topic_id):
-        return redirect(url_for('topic_chats', topic_name=topic_name))
+    if messages.create_chat(chat_title, user_id, topic_id):
+        return redirect(url_for("topic_chats", topic_name=topic_name))
     else:
-        return render_template("error.html", message="viestiä ei voitu lähettää, keksi jotain uniikkia :-)")
+        flash("Keskustelua ei voitu aloittaa, koska samanlainen keskustelu on jo olemassa :-(")
+        return redirect(url_for("topic_chats", topic_name=topic_name))
 
 @app.route("/my_messages")
 def my_messages():
@@ -58,7 +59,15 @@ def remove_account():
 @app.route("/delete_user")
 def delete_user():
     userid = users.user_id()
-    users.delete_user(userid)
+    try:
+        delete = users.delete_user(userid)
+        if delete == False:
+            flash("Käyttäjän poistaminen ei onnistunut, yritä uudelleen")
+            return redirect(url_for("profile"))
+        else:
+            return render_template("index.html", message="Käyttäjä poistettiin onnistuneesti")
+    except Exception as e:
+        flash("Virhe poistaessa käyttäjää: {}".format(str(e)))
     return render_template("index.html")
 
 @app.route("/change_password", methods=["POST", "GET"])
@@ -71,16 +80,18 @@ def change_password():
         new_password2 = request.form["new2"]
 
         if new_password != new_password2:
-            return render_template("error.html", message="salasanat eivät täsmää")
-        if not users.check_old_password(old):
-            return render_template("error.html", message="vanha salasana on väärin")
-
+            flash("Salasanat eivät täsmää")
+            return redirect(url_for("change_password"))
+        elif not users.check_old_password(old):
+            flash("Vanha salasana on väärin")
+            return redirect(url_for("change_password"))
+        
         result = users.change_password(new_password)
-
         if result:
-            return render_template("index.html")
+            return render_template("index.html", message="Salasana vaihdettiin onnistuneesti")
         else:
-            return render_template("error.html", message="virhe")
+            flash("Virhe")
+            return redirect(url_for("change_password"))
         
 @app.route('/search', methods=['GET', 'POST'])
 def search():
@@ -93,14 +104,15 @@ def search():
     
 @app.route("/create_topic", methods=["POST"])
 def create_topic():
-    topic_name = request.form["topic_name"]
-    create = messages.create_topic(topic_name)
     if session["csrf_token"] != request.form["csrf_token"]:
         abort(403)
-    elif create:
+    topic_name = request.form["topic_name"]
+    create = messages.create_topic(topic_name)
+    if create:
         return redirect(url_for("welcome"))
     else:
-        return render_template("error.html", message="lisääminen epäonnistui")
+        flash("Tämän niminen aihe on jo olemassa")
+        return redirect(url_for("welcome"))
     
 #----------------------------------------------
     
@@ -109,21 +121,23 @@ def delete_topic(topic_name):
     delete = messages.delete_topic(topic_name)
     if delete:
         return redirect(url_for("welcome"))
-    return render_template("error.html", message="virhe")
+    else:
+        return render_template("error.html", message="virhe")
 
 @app.route("/delete_chat/<topic_name>/<chat_name>", methods=["GET", "POST"])
 def delete_chat(chat_name, topic_name):
     delete = messages.delete_chat(chat_name)
     if delete:
         return redirect(url_for("topic_chats", topic_name=topic_name))
-    return render_template("error.html", message="virhe")
+    else:
+        return render_template("error.html", message="virhe")
 
 @app.route("/delete_message/<chat_name>/<message_id>", methods=["GET", "POST"])
 def delete_message(chat_name, message_id):
     delete = messages.delete_message(message_id)
     if delete:
         return redirect(url_for("chat_messages", chat_name=chat_name))
-    elif delete==False:
+    else:
         return render_template("error.html", message="virhe")
     
 
@@ -135,16 +149,17 @@ def new():
 
 @app.route("/send", methods=["POST", "GET"])
 def send():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     content = request.form["content"]
     chat_name = request.form["chat_name"]
     chat_id = messages.get_chat_id(chat_name)
 
-    if session["csrf_token"] != request.form["csrf_token"]:
-        abort(403)
-    elif messages.send_message(content, chat_id):
+    if messages.send_message(content, chat_id):
         return redirect(url_for('chat_messages', chat_name=chat_name))
     else:
-        return render_template("error.html", message="Viestiä ei voitu lähettää, yritä uudelleen")
+        flash("Viestiä ei voitu lähettää, yritä uudelleen")
+        return redirect(url_for('chat_messages', chat_name=chat_name))
 
 #-----------------------------------------------------------
 
@@ -159,7 +174,7 @@ def login():
             session["username"] = username
             return redirect(url_for("welcome"))
         else:
-            return render_template("error.html", message="Väärä tunnus tai salasana")
+            return render_template("index.html", message="Väärä tunnus tai salasana")
         
 @app.route("/register", methods=["GET"])
 def register_form():
@@ -174,17 +189,18 @@ def register():
         password1 = request.form["password1"]
         password2 = request.form["password2"]
         if password1 != password2:
-            return render_template("error.html", message="Salasanat eivät täsmää")
+            return render_template("register.html", message="Salasanat eivät täsmää")
         
         result = users.register(username, password1)
         if result == 3:
-            return render_template("error.html", message="HUOM! käyttäjänimen tulee olla vähintään 2 ja salasanan 4 merkkiä")
+            return render_template("register.html", message="Käyttäjänimen tulee olla vähintään 2 ja salasanan 4 merkkiä")
         elif result == 2:
-            return render_template("error.html", message="Tämä käyttäjänimi on jo käytössä")
+            return render_template("register.html", message="Tämä käyttäjänimi on jo käytössä")
         elif result:
-            return redirect("/login")
+            flash("Käyttäjä luotiin onnistuneesti. Kirjaudu sisään.")
+            return redirect("/login") 
         else:
-            return render_template("error.html", message="Rekisteröinti ei onnistunut")
+            return render_template("register.html", message="Rekisteröinti ei onnistunut")
 
 
 @app.route("/logout")
