@@ -22,34 +22,31 @@
         <ul>
             {% if chats %}
 
-                {% for chat in chats %}
-                <li>
-                    <a href="{{ url_for('chat_messages', chat_name=chat.title) }}">
-                        <span style="font-size: 1.1em; font-style: italic;">{{ chat.title }}</span>
-                        <br>
-                        <br>
-                         <span>{{ get_username(chat.title) }}</span> 
-                         <span style="color: white;"> &nbsp; | &nbsp; </span>
-                         <span>Viestejä: {{ get_count(chat.title) }}</span>
-                         <span style="color: white;"> &nbsp; | &nbsp; </span> 
-                         <span>{{ created_at(chat.title).strftime('%d.%m.%Y %H:%M' ) }}</span>
+            {% for chat in chats %}
+            <li>
+                <a href="{{ url_for('chat_messages', chat_name=chat.title, topic_name=topic_name) }}">
+                    <span style="font-size: 1.1em; font-style: italic;">{{ chat.title }}</span>
+                    <br>
+                    <br>
+                     <span>{{ get_username(chat.title) }}</span> 
+                     <span style="color: white;"> &nbsp; | &nbsp; </span>
+                     <span>Viestejä: {{ get_count(chat.title) }}</span>
+                     <span style="color: white;"> &nbsp; | &nbsp; </span> 
+                     <span>{{ created_at(chat.title).strftime('%d.%m.%Y %H:%M' ) }}</span>
 
-                         {% if adminstatus == 1 %}
-                            <span>  
-                                <a href="{{ url_for('delete_chat', chat_name=chat.title, topic_name=topic_name) }}">Poista keskustelu</a>
-                            </span>
-                        {% endif %}
+                     {% if adminstatus == 1 or chat.user_id == userid%}
+                            <a href="{{ url_for('delete_chat', chat_name=chat.title, topic_name=topic_name) }}">Poista keskustelu</a>
+                    {% endif %}
+                </a>
+                <hr>   
+            </li>
+            {% endfor %}
 
-                    </a>
-                    <hr>    
-                    
-                </li>
-                {% endfor %}
+        {% else %}
+            <p>Tällä alueella ei ole vielä yhtään viestiä :( </p>
 
-            {% else %}
-                <p>Tällä alueella ei ole vielä yhtään viestiä :( </p>
+        {% endif %}
 
-            {% endif %}
 
         </ul>
     </nav>

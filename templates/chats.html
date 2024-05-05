@@ -21,7 +21,9 @@
     <span> {{ username }}
     <span style="color: white;"> &nbsp; | &nbsp; </span>
     {{ created_at.strftime("%d.%m.%Y %H:%M") }}</span> <br> <br>
-    <span style="font-size: 1.1em; font-style: italic; font-weight: bold;">{{ chat_name }}</span> <br> <br>
+    <span style="font-size: 1.1em; font-style: italic; font-weight: bold;">{{ chat_name }}</span> 
+    <br> 
+    <br>
 
     <hr>
     <br>
@@ -29,13 +31,17 @@
     {% for message in msgs %}
         <span >{{ message[1] }}
         <span style="color: white;"> &nbsp; | &nbsp; </span>
-        {{ message.sent_at.strftime("%d.%m.%Y %H:%M") }}</span> <br> <br>
+        {{ message.sent_at.strftime("%d.%m.%Y %H:%M") }}</span>
+        {% if adminstatus == 1 or message.user_id == user_id %}
+            <span style="color: white;"> &nbsp; | &nbsp; </span>
+            <span><a href="{{ url_for('delete_message', chat_name=chat_name, message_id=message.id) }}">Poista viesti</a></span>
+        {% endif %} 
+         <br> 
+         <br>
 
         <span style="font-size: 1.1em; font-style: italic;">{{ message[0] }}</span> <br> <br>
 
-        {% if adminstatus == 1 or message.user_id == user_id %}
-            <span><a href="{{ url_for('delete_message', chat_name=chat_name, message_id=message.id) }}">Poista viesti</a></span>
-        {% endif %} 
+        
         
         <hr>
         <br>

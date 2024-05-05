@@ -26,7 +26,7 @@ def get_topics():
     return results.fetchall()
 
 def get_chats(topic_name):
-    sql = text("SELECT title FROM chats WHERE topic_id = (SELECT id FROM topic WHERE topic_name = :topic_name) ORDER BY created_at DESC")
+    sql = text("SELECT title, user_id FROM chats WHERE topic_id = (SELECT id FROM topic WHERE topic_name = :topic_name) ORDER BY created_at DESC")
     res = db.session.execute(sql, {"topic_name": topic_name})
     return res.fetchall()
 
@@ -42,7 +42,7 @@ def get_topic_id(topic_name):
     return result[0]
     
 def create_chat(title, user_id, topic_id):
-    if len(title.strip())<3:
+    if (len(title.strip()) <= 2 or len(title) <= 2) or "/" in title:
         return False
     sql = text("SELECT title FROM chats")
     result = db.session.execute(sql).fetchall()

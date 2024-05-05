@@ -16,8 +16,10 @@ def welcome():
 @app.route("/topic/<topic_name>")
 def topic_chats(topic_name):
     chats = messages.get_chats(topic_name)
-    adminstatus = users.admin_status(users.user_id())
-    return render_template("topic_chats.html", chats=chats, topic_name=topic_name, get_count=messages.get_count, created_at=messages.created_at, adminstatus=adminstatus, get_username=messages.get_username)
+    userid = users.user_id()
+    adminstatus = users.admin_status(userid)
+    return render_template("topic_chats.html", chats=chats, topic_name=topic_name, get_count=messages.get_count, created_at=messages.created_at, \
+                           adminstatus=adminstatus, get_username=messages.get_username, userid=userid)
 
 @app.route("/chat/<chat_name>")
 def chat_messages(chat_name):
@@ -25,7 +27,8 @@ def chat_messages(chat_name):
     username = messages.get_username(chat_name)
     created_at = messages.created_at(chat_name)
     adminstatus = users.admin_status(users.user_id())
-    return render_template("chats.html", msgs=msgs, created_at=created_at, chat_name=chat_name, username=username, user_id=users.user_id(), adminstatus=adminstatus)
+    return render_template("chats.html", msgs=msgs, created_at=created_at, chat_name=chat_name, \
+                           username=username, user_id=users.user_id(), adminstatus=adminstatus)
 
 @app.route("/create_chat", methods=["POST", "GET"])
 def create_chat():
@@ -36,10 +39,12 @@ def create_chat():
     topic_id = messages.get_topic_id(topic_name)
     user_id = users.user_id()
 
-    if messages.create_chat(chat_title, user_id, topic_id):
+    msg = messages.create_chat(chat_title, user_id, topic_id)
+
+    if msg == True:
         return redirect(url_for("topic_chats", topic_name=topic_name))
     else:
-        flash("Keskustelua ei voitu aloittaa, koska samanlainen keskustelu on jo olemassa :-(")
+        flash("Keskustelua ei voitu aloittaa, koska samanlainen keskustelu on jo olemassa, se sisältää kiellettyjä merkkejä tai se on liian lyhyt :-(")
         return redirect(url_for("topic_chats", topic_name=topic_name))
 
 @app.route("/my_messages")

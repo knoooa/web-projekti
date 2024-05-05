@@ -41,9 +41,7 @@
                 <span style="color: white;"> &nbsp; | &nbsp; </span> 
                 <span style="display: inline;">Keskusteluita: {{ get_count(topic[0]) }}</span>
                 {% if adminstatus == 1 %}
-                    <span>
-                        <a href="{{ url_for('delete_topic', topic_name=topic[0]) }}">Poista keskustelualue</a>
-                    </span>
+                    <span><a href="{{ url_for('delete_topic', topic_name=topic[0]) }}">Poista keskustelualue</a></span>
                 {% endif %}
             </a>
         </li>        
