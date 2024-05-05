@@ -45,9 +45,17 @@ Nyt voit käynnistää sovelluksen komennolla
 $ flask run
 ```
 
+### Ylläpitäjäksi lisääminen
 Jotta voit lisätä uusia keskustelualueita, tee luomastasi käyttäjästä ylläpitäjä seuraavalla komennolla:
 
+valitse ensin tietokannasta käyttäjät ja niiden id:
 ```
-INSERT INTO admin (user_id, admin_status) VALUES ([user_id], 1);
+SELECT * FROM users;
+```
+
+Korvaa user_id alla olevassa komennossa halutulla id:llä
+
+```
+INSERT INTO admin (user_id, admin_status) VALUES (user_id, 1);
 ```
 
