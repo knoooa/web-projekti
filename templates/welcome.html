@@ -6,21 +6,25 @@
 </head>
 
 <body>
-    <h3>Tervetuloa, {{ username }}!</h3>
+    <div class="horizontal-nav">
+        <ul>
+            <li><a href="{{ url_for('welcome') }}">Koti</a></li> |
+            <li><a href="{{ url_for('my_messages') }}">Omat viestit</a></li> |
+            <li><a href="{{ url_for('search') }}">Haku</a></li> |
+            <li><a href="{{ url_for('profile') }}">Profiili</a></li> |
+            <li><a href="{{ url_for('index') }}">Kirjaudu ulos tästä</a></li>
+        </ul>
+    </div>
+
+    <h1>Koti</h1>
+
+    <h2>Tervetuloa, {{ username }}!</h2>
     {% if adminstatus == 1 %}
         <h4>Olet kirjautunut sisään ylläpitäjänä; voit luoda ja poistaa keskustelualueita, keskusteluita ja viestejä</h4>
     {% endif %}
-    <nav>
-        <ul>
-            <li><a href="{{ url_for('welcome') }}">Koti</a></li>
-            <li><a href="{{ url_for('my_messages') }}">Omat viestit</a></li>
-            <li><a href="{{ url_for('search') }}">Haku</a></li>
-            <li><a href="{{ url_for('profile') }}">Profiili</a></li>
-            <li><a href="{{ url_for('index') }}">Kirjaudu ulos tästä</a></li>
-        </ul>
-    </nav>
+    <br>
 
-    <h3>Aiheet:</h3>
+    <h3>Keskustelualueet:</h3>
     {% if adminstatus == 1 %}
     <form action="{{ url_for('create_topic') }}" method="post">
         <input type="text" name="topic_name" placeholder="Anna keskustelualueen aihe" maxlength="20">

@@ -110,6 +110,8 @@ def get_content(id):
     return res
     
 def create_topic(topic_name):
+    if topic_name.strip() == "":
+        return 1
     topic_name = topic_name[0].capitalize() + topic_name[1:].lower()
     if len(topic_name) <= 20 and len(topic_name.strip()) > 0:
         try:

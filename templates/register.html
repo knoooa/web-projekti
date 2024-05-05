@@ -2,27 +2,63 @@
 <html>
 <head>
   <link rel="stylesheet" href="static/assets/main.css">
+  <style>
+    .register-container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    input[type="text"],
+    input[type="password"],
+    input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    input[type="submit"] {
+      background-color: #333;
+      color: #fff;
+      cursor: pointer;
+    }
+    input[type="submit"]:hover {
+      background-color: #555;
+    }
+    a {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      color: #333;
+    }
+    a:hover {
+      color: #555;
+    }
+  </style>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
-        <div class="horizontal-nav">
-                <ul>
-                    <li><a href="{{ url_for('index') }}">Takaisin</a></li>
-                </ul>
-            </div>
-        <h3>Luo käyttäjä</h3>
-        <p></p>
-        <form action="/register" method="post">
-                Tunnus: <input type="text" name="username">
-                <p>
-                Salasana: <input type="password" name="password1">
-                <p>
-                Anna salasana uudelleen: <input type="password" name="password2">
-                <p>
-                <input type="submit" value="Luo tunnus">
-        </form>
+  <div class="register-container">
+    <div class="horizontal-nav">
+      <ul>
+        <li><a href="{{ url_for('index') }}">Takaisin</a></li>
+      </ul>
+    </div>
+    <h3>Luo käyttäjä</h3>
+    <form action="/register" method="post">
+      <p>Tunnus: <br><input type="text" name="username"></p>
+      <p>Salasana: <br><input type="password" name="password1"></p>
+      <p>Anna salasana uudelleen: <br><input type="password" name="password2"></p>
+      <input type="submit" value="Luo tunnus">
+    </form>
+  </div>
 </body>
+</html>
+
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {

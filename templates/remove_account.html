@@ -2,26 +2,68 @@
 <html>
 <head>
   <link rel="stylesheet" href="static/assets/main.css">
+  <style>
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .horizontal-nav {
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    .horizontal-nav ul li:last-child {
+      margin-right: 0;
+    }
+    .horizontal-nav ul li a {
+      text-decoration: none;
+      color: lightskyblue;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    h3 {
+      color: inherit;
+    }
+    p {
+      margin-bottom: 20px;
+    }
+    button {
+      background-color: #f44336;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    button:hover {
+      background-color: #d32f2f;
+    }
+    .center {
+      text-align: center;
+    }
+  </style>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
-        <div class="horizontal-nav">
-                <ul>
-                    <li><a href="{{ url_for('profile') }}">Takaisin</a></li>
-                </ul>
-            </div>
-    <h3>Poista käyttäjä</h3>
-
-    <p>Oletko varma, että haluat poistaa käyttäjän "{{ username }}"?</p>
-
-    <form action="/delete_user">
-        <button type="submit" name="confirm" value="yes">Kyllä</button> <a>HUOM, Käyttäjän poistoa ei voi peruuttaa!</a>
-    </form>
-    <br>
-    <form action="/profile" method="get">
-        <button type="submit">Peruuta</button>
-    </form>
+    <div class="horizontal-nav">
+        <ul>
+            <li><a href="{{ url_for('profile') }}">Takaisin</a></li>
+        </ul>
+    </div>
+    <div class="container">
+      <h3>Poista käyttäjä</h3>
+      <p>Oletko varma, että haluat poistaa käyttäjän "{{ username }}"?</p>
+      <form action="/delete_user">
+          <button type="submit" name="confirm" value="yes">Kyllä</button>
+      </form>
+      <p> käyttäjän poistoa ei voi peruuttaa!</p>
+    </div>
 </body>
 </html>
 

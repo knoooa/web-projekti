@@ -2,13 +2,14 @@ body {
     margin: auto;
     max-width: 40em;
     font-family: 'roboto';
-    background: #1a1625;
-    color: blanchedalmond;
+    background: #191919;
+    color: whitesmoke;
 }
 
 nav li {
     display: inline-block;
     padding: 0 .5em;
+    color: lightskyblue;
 }
 
 nav ul {    
@@ -51,40 +52,39 @@ nav ul li a:hover {
 }
 
 .horizontal-nav ul li a:hover {
-    /*background-color: rgb(47, 20, 82); */
     color: #1976d2;
 }
 
 h1 {
-    color: blanchedalmond; 
+    color: whitesmoke; 
     font-size: 36px; 
     text-align: center;
     text-shadow: 2px 2px 4px #000; 
 }
 
 form {
-    color: blanchedalmond; 
+    color: whitesmoke; 
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    /*box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);*/
 }
 
 textarea {
     background-color: #2f2b3a;
-    color: blanchedalmond;
+    color: whitesmoke;
 }
 
 input {
     background-color: #2f2b3a;
-    color: blanchedalmond;
+    color: whitesmoke;
 }
 
 
 a:link {
-    color: lightskyblue; 
+    color: whitesmoke; 
 }
 
 a:visited {
-    color: lightskyblue;
+    color: whitesmoke;
 }
 
 a:hover {

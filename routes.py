@@ -108,6 +108,8 @@ def create_topic():
         abort(403)
     topic_name = request.form["topic_name"]
     create = messages.create_topic(topic_name)
+    if create == 1:
+        return redirect(url_for("welcome"))
     if create:
         return redirect(url_for("welcome"))
     else:
@@ -158,7 +160,7 @@ def send():
     if messages.send_message(content, chat_id):
         return redirect(url_for('chat_messages', chat_name=chat_name))
     else:
-        flash("Viestiä ei voitu lähettää, yritä uudelleen")
+        flash("Viestiä ei voitu lähettää, koska viesti voi olla liian lyhyt. Yritä uudelleen")
         return redirect(url_for('chat_messages', chat_name=chat_name))
 
 #-----------------------------------------------------------
