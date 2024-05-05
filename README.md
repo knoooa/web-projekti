@@ -13,6 +13,7 @@ Sovelluksessa näkyy keskustelualueita, joista jokaisella on tietty aihe. Alueil
 - Ylläpitäjä voi lisätä ja poistaa keskustelualueita.
 - Käyttäjä voi poistaa oman käyttäjänsä ja vaihtaa salasanan
 - Käyttäjän voi tällä hetkellä lisätä ylläpitäjäksi vain käyttämällä tietokantaa
+- ei ole testattavissa fly.io:ssa
 
 
 ### Esimerkki käynnistysohjeista
