@@ -2,8 +2,8 @@ body {
     margin: auto;
     max-width: 40em;
     font-family: 'Arial';
-    background: #191919;
-    color: whitesmoke;
+    background: #121212;
+    color: rgba(245, 245, 245, 0.8);
 }
 
 nav li {
@@ -56,35 +56,35 @@ nav ul li a:hover {
 }
 
 h1 {
-    color: whitesmoke; 
+    color: rgba(245, 245, 245, 0.8); 
     font-size: 36px; 
     text-align: center;
     text-shadow: 2px 2px 4px #000; 
 }
 
 form {
-    color: whitesmoke; 
+    color: rgba(245, 245, 245, 0.8); 
     border-radius: 5px;
     /*box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);*/
 }
 
 textarea {
     background-color: #2f2b3a;
-    color: whitesmoke;
+    color: rgba(245, 245, 245, 0.8);
 }
 
 input {
     background-color: #2f2b3a;
-    color: whitesmoke;
+    color: rgba(245, 245, 245, 0.8);
 }
 
 
 a:link {
-    color: whitesmoke; 
+    color: rgba(245, 245, 245, 0.8); 
 }
 
 a:visited {
-    color: whitesmoke;
+    color: rgba(245, 245, 245, 0.8);
 }
 
 a:hover {

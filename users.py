@@ -24,7 +24,7 @@ def logout():
 
 
 def register(username, password):
-    if not (1 < len(username.strip()) <= 15) or not (3 < len(password.strip()) <= 20):
+    if not (1 < len(username.strip()) <= 15) or not (3 < len(password.strip()) <= 25):
         return 3
     hash_value = generate_password_hash(password)
     password = hash_value

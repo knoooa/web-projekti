@@ -4,6 +4,68 @@
   <link rel="stylesheet" href="/static/assets/main.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+<style>
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+      resize: vertical; 
+    }
+    input[type="submit"] {
+      background-color: #282981;
+      color: white;
+      padding: 7px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #1e2081;
+    }
+
+    .chat-container {
+      width: auto;
+      margin: 20px auto;
+    }
+
+    .chat {
+      border: 1px solid #444;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #222127;
+    }
+
+    .chat-title {
+      font-size: 1.1em;
+      font-weight: bold;
+      margin-bottom: 10px;
+      overflow-wrap: break-word;
+    }
+
+    .chat-title a {
+      color: #ffffffe5;
+      text-decoration: none;
+    }
+
+    .chat-title a:hover {
+        text-decoration: underline;  
+}
+    
+    .chat-meta {
+      color: #888;
+      font-size: 0.9em;
+    }
+
+    .chat-meta span {
+      margin-right: 10px;
+    }
+  </style>
 
 <body>
     <div class="horizontal-nav">
@@ -16,35 +78,26 @@
         </ul>
     </div>
 
-    <h1>{{topic_name}}</h1>
+    <div class="chat-container">
+        <h1>{{ topic_name }}</h1>
 
-    <nav>
-        <ul>
-            {% if chats %}
-
+        {% if chats %}
             {% for chat in chats %}
-            <li>
-                <a href="{{ url_for('chat_messages', chat_name=chat.title, topic_name=topic_name) }}">
-                    <span style="font-size: 1.1em; font-style: italic;">{{ chat.title }}</span>
-                    <br>
-                    <br>
-                     <span>{{ get_username(chat.title) }}</span> 
-                     <span style="color: white;"> &nbsp; | &nbsp; </span>
-                     <span>Viestejä: {{ get_count(chat.title) }}</span>
-                     <span style="color: white;"> &nbsp; | &nbsp; </span> 
-                     <span>{{ created_at(chat.title).strftime('%d.%m.%Y %H:%M' ) }}</span>
-
-                     {% if adminstatus == 1 or chat.user_id == userid%}
+                <div class="chat">
+                    <div class="chat-title"><a href="{{ url_for('chat_messages', chat_name=chat.title, topic_name=topic_name) }}">{{ chat.title }}</a></div>
+                    <div class="chat-meta">
+                        <span>{{ get_username(chat.title) }}</span>
+                        <span>Viestejä: {{ get_count(chat.title) }}</span>
+                        <span>{{ created_at(chat.title).strftime('%d.%m.%Y %H:%M' ) }}</span>
+                        {% if adminstatus == 1 or chat.user_id == userid %}
                             <a href="{{ url_for('delete_chat', chat_name=chat.title, topic_name=topic_name) }}">Poista keskustelu</a>
-                    {% endif %}
-                </a>
-                <hr>   
-            </li>
-            {% endfor %}
+                        {% endif %}
+                    </div>
 
+                </div>
+            {% endfor %}
         {% else %}
             <p>Tällä alueella ei ole vielä yhtään viestiä :( </p>
-
         {% endif %}
 
 
@@ -53,7 +106,7 @@
     <br>
     <form action="{{ url_for('create_chat') }}" method="post">
         <input type="hidden" name="topic_name" value="{{ topic_name }}">
-        <textarea name="chat_title" rows="4" cols="50" maxlength="200"></textarea><br>
+        <textarea name="chat_title" rows="4" maxlength="200" placeholder="Kirjoita keskustelun otsikko tähän"></textarea><br>
         <input type="submit" value="Aloita keskustelu (3 - 200 merkkiä!)">
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>

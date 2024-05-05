@@ -18,21 +18,25 @@
 
     <h1>Koti</h1>
 
-    <h2>Tervetuloa, {{ username }}!</h2>
+    <h3>Tervetuloa, {{ username }}!</h3>
+        <p>Sovelluksessa voit valita keskustelualueen, johon voi lähettää uusia keskusteluita. 
+            Keskusteluissa voi viestitellä muiden käyttäjien kanssa. Yläpalkista pääsee omiin viesteihin, profiiliin ja viestien hakuun.
+            Omat keskustelut ja omat viestit voi poistaa. Ylläpitäjät voivat poistaa kaikkien käyttäjien viestejä ja keskusteluita, 
+            sekä lisätä ja poistaa keskustelualueita</p>
     {% if adminstatus == 1 %}
         <h4>Olet kirjautunut sisään ylläpitäjänä; voit luoda ja poistaa keskustelualueita, keskusteluita ja viestejä</h4>
     {% endif %}
     <br>
 
-    <h3>Keskustelualueet:</h3>
+    <h3 style="text-align: center;">Keskustelualueet:</h3>
     {% if adminstatus == 1 %}
-    <form action="{{ url_for('create_topic') }}" method="post">
-        <input type="text" name="topic_name" placeholder="Anna keskustelualueen aihe" maxlength="20">
+    <form action="{{ url_for('create_topic') }}" method="post" style="width: 50%; margin: auto;">
+        <input type="text" name="topic_name" placeholder="Anna aihe" maxlength="20">
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-        <button type="submit">Luo keskustelualue</button>
+        <button type="submit" style="align-items: center; padding: 4px 10px; background-color: #301496; color: white; border: none; border-radius: 4px; cursor: pointer; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">Luo keskustelualue</button>
     </form>
     {% endif %}
-    <nav>
+    <nav style="text-align: center;">
     <ul>
         {% for topic in topics %}
         <li>

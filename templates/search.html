@@ -6,7 +6,6 @@
 </head>
 
 <body>
-
     <div class="horizontal-nav">
         <ul>
             <li><a href="{{ url_for('welcome') }}">Koti</a></li> |
@@ -17,17 +16,15 @@
         </ul>
     </div>
 
-    <h1>Haku</h1>
+    <h1 style="text-align: center;">Haku</h1>
 
-    <form id="searchForm">
-        <label for="search_query">Hakusana:</label>
-        <input type="text" id="search_query" name="search_query" maxlength="30">
-        <button type="submit">Hae</button>
+    <form id="searchForm" style="text-align: center;">
+        <label for="search_query"></label>
+        <input type="text" id="search_query" name="search_query" maxlength="30" placeholder="Hakusana">
+        <button type="submit" style="align-items: center; padding: 4px 10px; background-color: #301496; color: white; border: none; border-radius: 4px; cursor: pointer; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">Hae</button>
     </form>
 
-    <div id="searchResults">
-
-    </div>
+    <div id="searchResults"></div>
 
     <script>
         document.getElementById("searchForm").addEventListener("submit", function(event) {
@@ -46,6 +43,3 @@
     </script>
 </body>
 </html>
-
-
-

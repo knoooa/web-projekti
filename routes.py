@@ -200,7 +200,7 @@ def register():
         
         result = users.register(username, password1)
         if result == 3:
-            return render_template("register.html", message="Käyttäjänimen tulee olla vähintään 2 ja salasanan 4 merkkiä")
+            return render_template("register.html", message="Käyttäjänimen tulee olla 2-15 merkkiä ja salasanan 4-25 merkkiä")
         elif result == 2:
             return render_template("register.html", message="Tämä käyttäjänimi on jo käytössä")
         elif result:

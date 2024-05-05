@@ -4,6 +4,11 @@
   <link rel="stylesheet" href="/static/assets/main.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+<style>    
+  .chat-content {
+  overflow-wrap: break-word;
+}
+</style>
 
 <body>
   <div class="horizontal-nav">
@@ -20,9 +25,9 @@
     <ul>
       {% if msgs %}
           {% for message in msgs %}
-                  <p>Viesti: {{ message[0] }}</p>
-                  <p>Aika: {{ message[2].strftime("%d.%m.%Y %H:%M") }}</p>
-                  <p>Keskustelu: <a href="{{ url_for('chat_messages', chat_name=get_chat_name(message[1])) }}">{{ get_chat_name(message[1]) }}</a></p>
+             <span class="chat-content">Viesti: {{ message[0] }}</span>                  
+            <p>Aika: {{ message[2].strftime("%d.%m.%Y %H:%M") }}</p>
+            <p>Keskustelu: <a href="{{ url_for('chat_messages', chat_name=get_chat_name(message[1])) }}" class="chat-content">{{ get_chat_name(message[1]) }}</a></p>
                   
                   <hr>
           {% endfor %}

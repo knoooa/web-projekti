@@ -16,23 +16,25 @@
       width: 100%;
       padding: 10px;
       margin-bottom: 10px;
-      border: 1px solid #ccc;
+      border: 1px solid #555;
       border-radius: 5px;
       box-sizing: border-box;
+      border-width: 0,25px;
+      background-color: 555;
     }
     input[type="submit"] {
-      background-color: #333;
+      background-color: #0d1033;
       color: #fff;
       cursor: pointer;
     }
     input[type="submit"]:hover {
-      background-color: #555;
+      background-color: #181b3a;
     }
     a {
       display: block;
       text-align: center;
       text-decoration: none;
-      color: #333;
+      color: #1976d2;
     }
     a:hover {
       color: #555;
@@ -43,17 +45,13 @@
 
 <body>
   <div class="register-container">
-    <div class="horizontal-nav">
-      <ul>
-        <li><a href="{{ url_for('index') }}">Takaisin</a></li>
-      </ul>
-    </div>
+    <a href="{{ url_for('index') }}">Takaisin</a>
     <h3>Luo käyttäjä</h3>
     <form action="/register" method="post">
       <p>Tunnus: <br><input type="text" name="username"></p>
       <p>Salasana: <br><input type="password" name="password1"></p>
       <p>Anna salasana uudelleen: <br><input type="password" name="password2"></p>
-      <input type="submit" value="Luo tunnus">
+      <input type="submit" value="Luo käyttäjä">
     </form>
   </div>
 </body>

@@ -4,18 +4,24 @@
   <link rel="stylesheet" href="static/assets/main.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+<style>    
+    .chat-content {
+    overflow-wrap: break-word;
+  }
+  </style>
+
 <body>
     <ul>
         {% if ids %}
             {% for id in ids %}
             {% set message = get_content(id) %}
-                    <p>Viesti: {{ message.content }}</p>
+            <span class="chat-content">Viesti: {{ message.content }}</span> 
                     <p>Aika: {{ message.sent_at.strftime("%d.%m.%Y %H:%M") }}</p>
-                    <p>Keskustelu: <a href="{{ url_for('chat_messages', chat_name=get_chat(message.chat_id)) }}">{{ get_chat(message.chat_id) }}</a></p>                
+                    <p>Keskustelu: <a href="{{ url_for('chat_messages', chat_name=get_chat(message.chat_id)) }}" class="chat-content">{{ get_chat(message.chat_id) }}</a></p>                
                     <hr>
             {% endfor %}
             {% else %}
-            <p>Viestejä ei löytynyt</p>
+          <span style="text-align: center;"><p>Viestejä ei löytynyt</p></span>
         {% endif %}
 
     </ul>
