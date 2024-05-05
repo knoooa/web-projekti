@@ -18,12 +18,13 @@
 
   <h1>Profiili</h1>
 
+  <div style="text-align: center;">
     <p>Olet kirjautuneena sisään nimellä {{ username }} </p>
     <a href="{{ url_for('change_password') }}">Vaihda salasana</a>
     <br>
     <br>
     <a href="{{ url_for('remove_account') }}">Poista käyttäjä</a>
-
+</div>
 </body>
 </html>
 
