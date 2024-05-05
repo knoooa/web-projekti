@@ -47,7 +47,7 @@ $ flask run
 
 Jotta voit lisätä uusia keskustelualueita, tee luomastasi käyttäjästä ylläpitäjä seuraavalla komennolla:
 
-'''
+```
 INSERT INTO admin (user_id, admin_status) VALUES ([user_id], 1);
-'''
+```
 
