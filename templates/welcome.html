@@ -23,7 +23,8 @@
     <h3>Aiheet:</h3>
     {% if adminstatus == 1 %}
     <form action="{{ url_for('create_topic') }}" method="post">
-        <input type="text" name="topic_name" placeholder="Anna keskustelualueen aihe">
+        <input type="text" name="topic_name" placeholder="Anna keskustelualueen aihe" maxlength="20">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
         <button type="submit">Luo keskustelualue</button>
     </form>
     {% endif %}

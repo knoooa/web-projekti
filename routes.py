@@ -1,6 +1,6 @@
 from app import app
-from flask import render_template, request, redirect, session, url_for
-import users, messages
+from flask import render_template, request, redirect, session, url_for, abort
+import users, messages, secrets
 
 @app.route("/")
 def index():
@@ -33,7 +33,10 @@ def create_chat():
     topic_name = request.form['topic_name'] 
     topic_id = messages.get_topic_id(topic_name)
     user_id = users.user_id()
-    if messages.create_chat(chat_title, user_id, topic_id):
+
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+    elif messages.create_chat(chat_title, user_id, topic_id):
         return redirect(url_for('topic_chats', topic_name=topic_name))
     else:
         return render_template("error.html", message="viestiä ei voitu lähettää, keksi jotain uniikkia :-)")
@@ -92,7 +95,9 @@ def search():
 def create_topic():
     topic_name = request.form["topic_name"]
     create = messages.create_topic(topic_name)
-    if create:
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+    elif create:
         return redirect(url_for("welcome"))
     else:
         return render_template("error.html", message="lisääminen epäonnistui")
@@ -134,7 +139,9 @@ def send():
     chat_name = request.form["chat_name"]
     chat_id = messages.get_chat_id(chat_name)
 
-    if messages.send_message(content, chat_id):
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+    elif messages.send_message(content, chat_id):
         return redirect(url_for('chat_messages', chat_name=chat_name))
     else:
         return render_template("error.html", message="Viestiä ei voitu lähettää, yritä uudelleen")
@@ -153,14 +160,10 @@ def login():
             return redirect(url_for("welcome"))
         else:
             return render_template("error.html", message="Väärä tunnus tai salasana")
-    
-
-        
         
 @app.route("/register", methods=["GET"])
 def register_form():
     return render_template("register.html")
-
 
 @app.route("/register", methods=["GET", "POST"])
 def register():

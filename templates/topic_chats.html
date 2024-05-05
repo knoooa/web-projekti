@@ -58,6 +58,7 @@
         <input type="hidden" name="topic_name" value="{{ topic_name }}">
         <textarea name="chat_title" rows="4" cols="50" maxlength="200"></textarea><br>
         <input type="submit" value="Aloita keskustelu (3 - 200 merkkiä!)">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
 
 </body>

@@ -1,8 +1,8 @@
-#from db import db
 from flask import session
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy import text
 from db import db
+import secrets
 
 def login(username, password):
     sql = text("SELECT id, password FROM users WHERE username=:username")
@@ -12,6 +12,7 @@ def login(username, password):
         return False
     else:
         if check_password_hash(user.password, password):
+            session["csrf_token"] = secrets.token_hex(16)
             session["user_id"] = user.id
             return True
         else:
@@ -23,7 +24,7 @@ def logout():
 
 
 def register(username, password):
-    if len(username.strip())<=1 or len(password.strip())<=3:
+    if not (1 < len(username.strip()) <= 15) or not (3 <= len(password.strip()) <= 20):
         return 3
     hash_value = generate_password_hash(password)
     password = hash_value
@@ -33,7 +34,6 @@ def register(username, password):
     
     if username_in_use > 0:
         return 2
-    
     try:
         sql_register_user = text("INSERT INTO users (username, password) VALUES (:username, :password)")
         db.session.execute(sql_register_user, {"username": username, "password": password})
@@ -70,14 +70,17 @@ def change_password(new_password):
                 
 
 def delete_user(userid):
-        sql2 = text("DELETE FROM messages WHERE user_id = :userid") 
+        sql = text("DELETE FROM messages WHERE user_id = :userid") 
+        db.session.execute(sql, {"userid": userid})
+
+        sql2 = text("DELETE FROM chats WHERE user_id = :userid")
         db.session.execute(sql2, {"userid": userid})
 
-        sql3 = text("DELETE FROM chats WHERE user_id = :userid")
-        db.session.execute(sql3, {"userid": userid})
+        sql3 = text("DELETE FROM admin WHERE user_id = :userid")
+        db.session.execute(sql3, {"userid":userid})
 
-        sql = text("DELETE FROM users WHERE id = :userid")
-        db.session.execute(sql, {"userid": userid})
+        sql4 = text("DELETE FROM users WHERE id = :userid")
+        db.session.execute(sql4, {"userid": userid})
 
         db.session.commit()
 
